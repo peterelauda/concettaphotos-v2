@@ -170,3 +170,5 @@
         @apply bg-background text-foreground;
     }
 }
+
+.font-rouge { font-family: 'Rouge Script', cursive; }
