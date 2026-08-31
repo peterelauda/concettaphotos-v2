@@ -25,7 +25,7 @@
                 </svg>
 
                 <h1
-                    class="col-lg-6 mx-auto mb-4 font-rouge text-white text-5xl md:text-7xl font-normal solid-shadow-text">
+                    class="col-lg-6 mx-auto mb-4 dynalight-regular text-white text-5xl md:text-7xl font-normal solid-shadow-text">
                     "Let’s make your memories remains forever."
                 </h1>
             </div>
@@ -117,11 +117,11 @@ onUnmounted(() => {
 }
 
 .solid-shadow-text {
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.4),
-        3px 3px 0px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5),
+                 2px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
 .solid-shadow-icon {
-    filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.5));
 }
 </style>
