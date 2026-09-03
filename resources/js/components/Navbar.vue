@@ -5,14 +5,14 @@
             ? 'bg-white opacity-100 shadow-md'
             : 'bg-transparent opacity-100'
     ]">
-        <div class="flex items-center justify-between w-full px-6 md:px-10 py-4">
+        <div class="flex items-center justify-between w-full px-4 sm:px-6 md:px-10 py-4">
             <div class="flex-1">
                 <button @click="isSidebarOpen = true" :class="isScrolled
                     ? 'text-[#3674B5] hover:text-[#3674B5]'
                     : 'text-white hover:text-white'"
-                    class="font-cinzel text-lg active:scale-95 transition-colors duration-700 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    class="font-cinzel text-sm sm:text-base md:text-lg active:scale-95 transition-colors duration-700 flex items-center gap-1 sm:gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -25,7 +25,7 @@
                 <Link href="/">
                     <img src="/images/logo_cp_primary.png" alt="Concetta Photos"
                         :class="isScrolled ? 'logo-blue' : 'logo-white'"
-                        class="h-8 sm:h-10 md:h-14 w-auto object-contain transition-all duration-700 ease-in-out" />
+                        class="h-7 sm:h-10 md:h-14 w-auto object-contain transition-all duration-700 ease-in-out" />
                 </Link>
             </div>
 
@@ -34,9 +34,10 @@
                     <button @click="isLangOpen = !isLangOpen" :class="isScrolled
                         ? 'text-[#3674B5] hover:text-[#3674B5]'
                         : 'text-white hover:text-white'"
-                        class="font-cinzel text-lg flex items-center gap-1 transition-colors duration-700">
+                        class="font-cinzel text-xs sm:text-sm md:text-base lg:text-lg flex items-center gap-1 transition-colors duration-700 outline-none">
                         {{ lang.toUpperCase() }}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-3 w-3 sm:h-3 sm:w-3 md:h-4 md:w-4 lg:h-5 lg:w-5" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
@@ -44,21 +45,21 @@
 
                     <transition name="fade">
                         <div v-if="isLangOpen"
-                            class="absolute right-0 mt-2 w-20 bg-white border border-[#3674B5] shadow-lg rounded-sm py-1 z-50 overflow-hidden">
+                            class="absolute right-0 mt-2 w-16 sm:w-20 bg-white/7 shadow-lg rounded-sm py-1 z-50 overflow-hidden border-none backdrop-blur-[1px]">
 
-                            <button @click="changeLang('en')" class="block w-full text-center px-4 py-2 text-lg font-bodoni
-                           text-[#3674B5] bg-white
-                           hover:bg-[#578FCA] hover:text-white
-                           active:bg-[#3674B5] active:text-white
-                           transition-colors duration-200">
+                            <button @click="changeLang('en')" class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni
+                                text-white bg-transparent
+                                hover:bg-white hover:text-[#578FCA]
+                                active:bg-white active:text-[#3674B5]
+                                transition-colors duration-200 outline-none">
                                 EN
                             </button>
 
-                            <button @click="changeLang('id')" class="block w-full text-center px-4 py-2 text-lg font-bodoni
-                           text-[#3674B5] bg-white
-                           hover:bg-[#578FCA] hover:text-white
-                           active:bg-[#3674B5] active:text-white
-                           transition-colors duration-200">
+                            <button @click="changeLang('id')" class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni
+                                text-white bg-transparent
+                                hover:bg-white hover:text-[#578FCA]
+                                active:bg-white active:text-[#3674B5]
+                                transition-colors duration-200 outline-none">
                                 ID
                             </button>
 
@@ -77,68 +78,88 @@
 
     <div :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full'"
         class="fixed top-0 left-0 h-full w-[85vw] max-w-80 bg-white z-50 shadow-2xl transition-transform duration-300 ease-in-out flex flex-col">
-        <div class="p-6 flex justify-end"> <button @click="isSidebarOpen = false"
-                class="text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200"> <svg
-                    xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+
+        <div class="p-4 sm:p-6 flex justify-end">
+            <button @click="isSidebarOpen = false"
+                class="text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg> </button> </div>
-        <div class="flex-1 overflow-y-auto px-5 sm:px-6 py-2 font-bodoni text-base sm:text-lg text-[#3674B5]">
+                </svg>
+            </button>
+        </div>
+
+        <div
+            class="flex-1 overflow-y-auto px-5 sm:px-6 py-2 font-bodoni text-sm sm:text-base md:text-lg lg:text-xl text-[#3674B5]">
             <ul class="space-y-4">
-                <li> <button @click="isAboutOpen = !isAboutOpen"
-                        class="w-full flex justify-between items-center text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                        {{ t.about }} <span class="text-sm transition-transform duration-300"
-                            :class="isAboutOpen ? 'rotate-180' : ''"> ▼ </span> </button>
-                    <ul v-show="isAboutOpen" class="pl-4 mt-2 space-y-2 text-sm sm:text-base text-[#578FCA]">
+                <li>
+                    <button @click="isAboutOpen = !isAboutOpen"
+                        class="w-full flex justify-between items-start text-left text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                        <span class="flex-1 pr-2 whitespace-normal break-words">{{ t.about }}</span>
+                        <span class="text-xs sm:text-sm transition-transform duration-300 mt-1 flex-shrink-0"
+                            :class="isAboutOpen ? 'rotate-180' : ''"> ▼ </span>
+                    </button>
+                    <ul v-show="isAboutOpen" class="pl-4 mt-2 space-y-2">
                         <li v-for="item in aboutItems" :key="item.id">
                             <Link :href="item.link_url || '#'"
-                                class="block text-[#578FCA] hover:bg-[#A1E3F9] hover:text-white active:bg-[#D1F8EF] active:text-white px-2 py-1 rounded-sm transition-colors duration-200">
-                                {{ item.title }} </Link>
+                                class="block py-1 text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                                {{ item.title }}
+                            </Link>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <Link href="/pricelist"
-                        class="block text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                        {{ t.priceList }} </Link>
+                        class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                        {{ t.priceList }}
+                    </Link>
                 </li>
-                <li> <button @click="isServicesOpen = !isServicesOpen"
-                        class="w-full flex justify-between items-center text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                        {{ t.services }} <span class="text-sm transition-transform duration-300"
-                            :class="isServicesOpen ? 'rotate-180' : ''"> ▼ </span> </button>
-                    <ul v-show="isServicesOpen" class="pl-4 mt-2 space-y-2 text-sm sm:text-base text-[#578FCA]">
+                <li>
+                    <button @click="isServicesOpen = !isServicesOpen"
+                        class="w-full flex justify-between items-start text-left text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                        <span class="flex-1 pr-2 whitespace-normal break-words">{{ t.services }}</span>
+                        <span class="text-xs sm:text-sm transition-transform duration-300 mt-1 flex-shrink-0"
+                            :class="isServicesOpen ? 'rotate-180' : ''"> ▼ </span>
+                    </button>
+                    <ul v-show="isServicesOpen" class="pl-4 mt-2 space-y-2">
                         <li v-for="item in servicesItems" :key="item.id">
                             <Link :href="item.link_url || '#'"
-                                class="block text-[#578FCA] hover:bg-[#A1E3F9] hover:text-white active:bg-[#D1F8EF] active:text-white px-2 py-1 rounded-sm transition-colors duration-200">
-                                {{ item.title }} </Link>
+                                class="block py-1 text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                                {{ item.title }}
+                            </Link>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <Link href="/testimonials"
-                        class="block text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                        {{ t.testimonials }} </Link>
+                        class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                        {{ t.testimonials }}
+                    </Link>
                 </li>
                 <li>
                     <Link href="/concettalk"
-                        class="block text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                        {{ t.concettalk }} </Link>
+                        class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                        {{ t.concettalk }}
+                    </Link>
                 </li>
                 <li>
                     <Link href="/faqs"
-                        class="block text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                        {{ t.faqs }} </Link>
+                        class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                        {{ t.faqs }}
+                    </Link>
                 </li>
             </ul>
         </div>
 
-        <div class="p-5 sm:p-6 flex flex-col gap-3 font-cinzel">
+        <div class="p-4 sm:p-6 flex flex-col gap-3 font-cinzel">
             <Link href="/inquiries"
-                class="block w-full text-center rounded-sm border border-[#3674B5] px-5 py-2 text-sm leading-normal text-white bg-[#3674B5] hover:bg-[#578FCA] hover:border-[#578FCA] hover:text-white active:bg-[#A1E3F9] active:border-[#A1E3F9] active:text-white transition-all duration-200">
-                {{ t.inquiries }} </Link>
+                class="block w-full text-center whitespace-normal rounded-sm border border-[#3674B5] px-4 py-2 sm:px-5 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg leading-normal text-white bg-[#3674B5] hover:bg-[#578FCA] hover:border-[#578FCA] hover:text-white active:bg-[#A1E3F9] active:border-[#A1E3F9] active:text-white transition-all duration-200">
+                {{ t.inquiries }}
+            </Link>
             <Link href="/subscribe"
-                class="block w-full text-center rounded-sm border border-[#578FCA] px-5 py-2 text-sm leading-normal text-[#578FCA] hover:bg-[#A1E3F9] hover:text-white hover:border-[#A1E3F9] active:bg-[#D1F8EF] active:text-white active:border-[#D1F8EF] transition-all duration-200">
-                {{ t.subscribe }} </Link>
+                class="block w-full text-center whitespace-normal rounded-sm border border-[#578FCA] px-4 py-2 sm:px-5 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg leading-normal text-[#578FCA] hover:bg-[#A1E3F9] hover:text-white hover:border-[#A1E3F9] active:bg-[#D1F8EF] active:text-white active:border-[#D1F8EF] transition-all duration-200">
+                {{ t.subscribe }}
+            </Link>
         </div>
     </div>
 </template>

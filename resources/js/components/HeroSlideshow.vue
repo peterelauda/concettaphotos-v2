@@ -17,17 +17,28 @@
             :style="{ opacity: textOpacity, transform: `translateY(${textTranslate}px)` }">
 
             <div class="animate-slide-down">
-                <svg xmlns="http://www.w3.org/2000/svg" width="77" height="77" fill="currentColor"
-                    class="bi bi-quote icon-2 text-white mx-auto mb-4 solid-shadow-icon" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    class="bi bi-quote icon-2 text-white mx-auto mb-2 solid-shadow-icon w-12 h-12 md:w-20 md:h-20"
+                    viewBox="0 0 16 16">
                     <path
                         d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z">
                     </path>
                 </svg>
 
                 <h1
-                    class="col-lg-6 mx-auto mb-4 imperial-script-regular text-white text-4xl md:text-6xl font-normal solid-shadow-text">
+                    class="col-lg-6 mx-auto mb-4 imperial-script-regular text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal solid-shadow-text">
                     "Let’s make your memories remains forever."
                 </h1>
+            </div>
+
+            <div @click="scrollToNext"
+                class="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer animate-smooth-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    class="bi bi-chevron-down text-white w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 solid-shadow-icon"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                </svg>
             </div>
         </div>
 
@@ -73,6 +84,13 @@ const handleScroll = () => {
     textTranslate.value = scrollY * 0.4
 }
 
+const scrollToNext = () => {
+    window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+    })
+}
+
 onMounted(() => {
     startAutoplay()
     window.addEventListener('scroll', handleScroll)
@@ -116,12 +134,27 @@ onUnmounted(() => {
     animation: slideDown 2.5s ease-out forwards;
 }
 
+@keyframes smoothBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(12px);
+    }
+}
+
+.animate-smooth-bounce {
+    animation: smoothBounce 2s ease-in-out infinite;
+}
+
 .solid-shadow-text {
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3),
-        1px 1px 0px rgba(0, 0, 0, 0.3);
+    text-shadow: 0.8px 0.8px 0px rgba(0, 0, 0, 0.7);
 }
 
 .solid-shadow-icon {
-    filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0.8px 0.8px 0px rgba(0, 0, 0, 0.7));
 }
 </style>
