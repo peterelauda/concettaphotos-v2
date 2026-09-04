@@ -1,7 +1,7 @@
 <template>
-    <div class="relative w-full h-screen">
+    <div class="relative w-full h-[100dvh]">
 
-        <div class="fixed top-0 left-0 w-full h-screen z-0 bg-black">
+        <div class="fixed top-0 left-0 w-full h-[100dvh] z-0 bg-black">
             <transition-group name="dissolve">
                 <div v-for="(slide, index) in slides" v-show="currentIndex === index" :key="slide.id"
                     class="absolute inset-0 w-full h-full">
@@ -32,7 +32,7 @@
             </div>
 
             <div @click="scrollToNext"
-                class="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-1/2 cursor-pointer animate-smooth-bounce">
+                class="absolute bottom-12 sm:bottom-10 lg:bottom-12 left-1/2 cursor-pointer animate-smooth-bounce">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     class="bi bi-chevron-down text-white w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 solid-shadow-icon"
                     viewBox="0 0 16 16">
@@ -142,7 +142,7 @@ onUnmounted(() => {
     }
 
     50% {
-        transform: translate(-50%, 12px);
+        transform: translate(-50%, 8px);
     }
 }
 
@@ -151,10 +151,10 @@ onUnmounted(() => {
 }
 
 .solid-shadow-text {
-    text-shadow: 0.8px 0.3px 0px rgba(80, 80, 80, 0.9);
+    text-shadow: 0.8px 0.4px 0px rgba(80, 80, 80, 0.9);
 }
 
 .solid-shadow-icon {
-    filter: drop-shadow(0.8px 0.3px 0px rgba(80, 80, 80, 0.9));
+    filter: drop-shadow(0.8px 0.4px 0px rgba(80, 80, 80, 0.9));
 }
 </style>
