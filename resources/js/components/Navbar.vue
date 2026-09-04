@@ -44,22 +44,26 @@
                     </button>
 
                     <transition name="fade">
-                        <div v-if="isLangOpen"
-                            class="absolute right-0 mt-2 w-16 sm:w-20 bg-white/7 shadow-lg rounded-sm py-1 z-50 overflow-hidden border-none backdrop-blur-[1px]">
+                        <div v-if="isLangOpen" :class="[
+                            'absolute right-0 mt-2 w-16 sm:w-20 rounded-sm py-1 z-50 overflow-hidden border-none transition-all duration-300',
+                            isScrolled ? 'bg-white shadow-md' : 'bg-white/7 shadow-lg backdrop-blur-[1px]'
+                        ]">
 
-                            <button @click="changeLang('en')" class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni
-                                text-white bg-transparent
-                                hover:bg-white hover:text-[#578FCA]
-                                active:bg-white active:text-[#3674B5]
-                                transition-colors duration-200 outline-none">
+                            <button @click="changeLang('en')"
+                                class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni bg-transparent outline-none transition-colors duration-200"
+                                :class="isScrolled
+                                    ? 'text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF]'
+                                    : 'text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#3674B5]'
+                                    ">
                                 EN
                             </button>
 
-                            <button @click="changeLang('id')" class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni
-                                text-white bg-transparent
-                                hover:bg-white hover:text-[#578FCA]
-                                active:bg-white active:text-[#3674B5]
-                                transition-colors duration-200 outline-none">
+                            <button @click="changeLang('id')"
+                                class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni bg-transparent outline-none transition-colors duration-200"
+                                :class="isScrolled
+                                    ? 'text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF]'
+                                    : 'text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#3674B5]'
+                                    ">
                                 ID
                             </button>
 
@@ -260,7 +264,6 @@ const translations = {
 
 const t = computed(() => translations[lang.value])
 </script>
-
 
 <style scoped>
 .font-cinzel {
