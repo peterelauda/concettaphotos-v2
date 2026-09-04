@@ -89,10 +89,21 @@ const handleScroll = () => {
 }
 
 const scrollToNext = () => {
-    window.scrollTo({
-        top: window.innerHeight,
-        behavior: 'smooth'
-    })
+    // Cari elemen target yang mengontrol perubahan navbar
+    const targetSection = document.querySelector('[data-navbar-scroll-target]')
+
+    if (targetSection) {
+        const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY
+        window.scrollTo({
+            top: targetPosition + 5,
+            behavior: 'smooth'
+        })
+    } else {
+        window.scrollTo({
+            top: window.innerHeight + 50,
+            behavior: 'smooth'
+        })
+    }
 }
 
 const handleVisibilityChange = () => {
