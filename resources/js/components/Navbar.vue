@@ -52,8 +52,8 @@
                             <button @click="changeLang('en')"
                                 class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni bg-transparent outline-none transition-colors duration-200"
                                 :class="isScrolled
-                                    ? 'text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF]'
-                                    : 'text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#3674B5]'
+                                    ? 'text-[#3674B5] hover:bg-[#3674B5] hover:text-white active:bg-[#A1E3F9] active:text-white'
+                                    : 'text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#A1E3F9]'
                                     ">
                                 EN
                             </button>
@@ -61,8 +61,8 @@
                             <button @click="changeLang('id')"
                                 class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni bg-transparent outline-none transition-colors duration-200"
                                 :class="isScrolled
-                                    ? 'text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF]'
-                                    : 'text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#3674B5]'
+                                    ? 'text-[#3674B5] hover:bg-[#3674B5] hover:text-white active:bg-[#A1E3F9] active:text-white'
+                                    : 'text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#A1E3F9]'
                                     ">
                                 ID
                             </button>

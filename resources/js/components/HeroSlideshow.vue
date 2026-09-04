@@ -66,13 +66,17 @@ let timer: ReturnType<typeof setInterval> | null = null
 
 const startAutoplay = () => {
     if (props.slides.length <= 1) return
+    if (timer) clearInterval(timer)
     timer = setInterval(() => {
         currentIndex.value = (currentIndex.value + 1) % props.slides.length
     }, props.interval || 5000)
 }
 
 const stopAutoplay = () => {
-    if (timer) clearInterval(timer)
+    if (timer) {
+        clearInterval(timer)
+        timer = null
+    }
 }
 
 const textOpacity = ref(1)
@@ -91,14 +95,24 @@ const scrollToNext = () => {
     })
 }
 
+const handleVisibilityChange = () => {
+    if (document.hidden) {
+        stopAutoplay()
+    } else {
+        startAutoplay()
+    }
+}
+
 onMounted(() => {
     startAutoplay()
     window.addEventListener('scroll', handleScroll)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
 })
 
 onUnmounted(() => {
     stopAutoplay()
     window.removeEventListener('scroll', handleScroll)
+    document.removeEventListener('visibilitychange', handleVisibilityChange)
 })
 </script>
 
