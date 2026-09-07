@@ -152,16 +152,63 @@
                         {{ t.faqs }}
                     </Link>
                 </li>
+
+                <!-- Sosial Media Icons -->
+                <li class="mt-8 sm:mt-10 mb-4 w-full">
+                    <div class="flex items-center justify-start gap-5 sm:gap-7 md:gap-8 w-full">
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/concettaphotos/" target="_blank" aria-label="Instagram"
+                            class="text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.036 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zM8 4.271a3.729 3.729 0 1 0 0 7.458 3.729 3.729 0 0 0 0-7.458zM8 10.28a2.28 2.28 0 1 1 0-4.56 2.28 2.28 0 0 1 0 4.56z" />
+                            </svg>
+                        </a>
+
+                        <!-- TikTok -->
+                        <a href="https://www.tiktok.com/@concettaphotos/" target="_blank" aria-label="TikTok"
+                            class="text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z" />
+                            </svg>
+                        </a>
+
+                        <!-- Threads -->
+                        <a href="https://www.threads.com/@concettaphotos" target="_blank" aria-label="Threads"
+                            class="text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200 flex items-center justify-center">
+
+                            <span class="w-4 h-4 sm:w-5 sm:h-5 bg-current inline-block transition-colors duration-200"
+                                style="-webkit-mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9d/Threads_%28app%29_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9d/Threads_%28app%29_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;">
+                            </span>
+
+                        </a>
+
+                        <!-- X / Twitter -->
+                        <a href="https://x.com/ConcettaPhotos_" target="_blank" aria-label="X"
+                            class="text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z" />
+                            </svg>
+                        </a>
+
+                    </div>
+                </li>
             </ul>
         </div>
 
         <div class="p-4 sm:p-6 flex flex-col gap-3 font-cinzel">
             <Link href="/inquiries"
-                class="block w-full text-center whitespace-normal rounded-sm border border-[#3674B5] px-4 py-2 sm:px-5 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg leading-normal text-white bg-[#3674B5] hover:bg-[#578FCA] hover:border-[#578FCA] hover:text-white active:bg-[#A1E3F9] active:border-[#A1E3F9] active:text-white transition-all duration-200">
+                class="block w-full text-center whitespace-normal rounded-md border border-[#3674B5] px-4 py-2 sm:px-5 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg leading-normal text-white bg-[#3674B5] hover:bg-[#578FCA] hover:border-[#578FCA] hover:text-white active:bg-[#A1E3F9] active:border-[#A1E3F9] active:text-white transition-all duration-200">
                 {{ t.inquiries }}
             </Link>
             <Link href="/subscribe"
-                class="block w-full text-center whitespace-normal rounded-sm border border-[#578FCA] px-4 py-2 sm:px-5 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg leading-normal text-[#578FCA] hover:bg-[#A1E3F9] hover:text-white hover:border-[#A1E3F9] active:bg-[#D1F8EF] active:text-white active:border-[#D1F8EF] transition-all duration-200">
+                class="block w-full text-center whitespace-normal rounded-md border border-[#578FCA] px-4 py-2 sm:px-5 sm:py-2 text-xs sm:text-sm md:text-base lg:text-lg leading-normal text-[#578FCA] hover:bg-[#A1E3F9] hover:text-white hover:border-[#A1E3F9] active:bg-[#D1F8EF] active:text-white active:border-[#D1F8EF] transition-all duration-200">
                 {{ t.subscribe }}
             </Link>
         </div>
