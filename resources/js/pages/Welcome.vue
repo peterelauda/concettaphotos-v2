@@ -9,7 +9,7 @@
         </div>
 
         <div data-navbar-scroll-target
-            class="relative z-20 bg-[#3674B5] pt-32 pb-16 sm:pt-40 sm:pb-24 px-6 border-t border-[#3674B5] flex flex-col items-center justify-center text-center overflow-hidden">
+            class="relative z-20 bg-[#3674B5] pt-32 pb-32 sm:pt-40 sm:pb-40 px-6 border-t border-[#3674B5] flex flex-col items-center justify-center text-center overflow-hidden">
 
             <div ref="introRef" :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'"
                 class="max-w-3xl mx-auto flex flex-col items-center gap-5 sm:gap-6 transition-all duration-1000 ease-out">
@@ -23,7 +23,7 @@
                     {{ introSection?.title || t.title }}
                 </h2>
 
-                <div class="w-16 md:w-20 h-[1px] bg-white/50 mb-2"></div>
+                <div class="w-16 sm:w-20 md:w-36 h-[1px] bg-white/50 mb-2"></div>
 
                 <div
                     class="font-bodoni text-sm sm:text-base md:text-lg leading-relaxed text-white/90 whitespace-pre-line mb-6 px-4">
