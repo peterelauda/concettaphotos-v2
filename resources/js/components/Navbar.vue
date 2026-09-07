@@ -236,6 +236,8 @@ const props = withDefaults(
     }
 )
 
+const emit = defineEmits(['lang-changed'])
+
 const aboutItems = computed(() => props.aboutItems)
 const servicesItems = computed(() => props.servicesItems)
 
@@ -271,6 +273,17 @@ onUnmounted(() => {
     )
 })
 
+onMounted(() => {
+    handleScroll()
+    emit('lang-changed', lang.value)
+
+    window.addEventListener(
+        'scroll',
+        handleScroll,
+        { passive: true }
+    )
+})
+
 const isSidebarOpen = ref(false)
 const isLangOpen = ref(false)
 const isAboutOpen = ref(false)
@@ -281,6 +294,7 @@ const lang = ref<'en' | 'id'>('en')
 const changeLang = (newLang: 'en' | 'id') => {
     lang.value = newLang
     isLangOpen.value = false
+    emit('lang-changed', newLang)
 }
 
 const translations = {

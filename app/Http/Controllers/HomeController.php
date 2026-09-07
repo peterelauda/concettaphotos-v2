@@ -20,6 +20,11 @@ class HomeController extends Controller
             return $heroSection ? $heroSection->media->toArray() : [];
         });
 
+        $introSection = Section::where('key', 'intro_about')
+            ->where('is_active', true)
+            ->with('media')
+            ->first();
+
         $menuItems = Section::whereIn('type', ['about', 'services'])
             ->where('is_active', true)
             ->get(['id', 'title', 'link_url', 'type']);
@@ -28,6 +33,7 @@ class HomeController extends Controller
             'slides' => $slides,
             'aboutItems' => $menuItems->where('type', 'about')->values(),
             'servicesItems' => $menuItems->where('type', 'services')->values(),
+            'introSection' => $introSection,
         ]);
     }
 }
