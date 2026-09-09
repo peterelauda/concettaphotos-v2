@@ -19,11 +19,34 @@
                     {{ introSection?.subtitle || t.subtitle }}
                 </h3>
 
-                <h2 class="font-cinzel text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] mb-1">
+                <h2
+                    class="font-cinzel text-white text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] mb-1">
                     {{ introSection?.title || t.title }}
                 </h2>
 
-                <div class="w-16 sm:w-20 md:w-36 h-[1px] bg-white/50 mb-2"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-32 sm:w-40 md:w-56 h-auto text-white/70 mb-3 mt-1"
+                    viewBox="0 0 200 30" fill="none" stroke="currentColor">
+                    <path d="M100,2 C101,9 104,13 111,15 C104,17 101,21 100,28 C99,21 96,17 89,15 C96,13 99,9 100,2 Z"
+                        fill="currentColor" stroke="none" />
+
+                    <path d="M20,15 C40,15 60,19 85,15" stroke-width="0.75" stroke-linecap="round" />
+                    <path d="M180,15 C160,15 140,19 115,15" stroke-width="0.75" stroke-linecap="round" />
+
+                    <path d="M35,16 C35,12 40,9 45,12 C42,14 38,15 35,16 Z" fill="currentColor" stroke="none" />
+                    <path d="M55,18 C55,22 60,25 65,22 C62,20 58,19 55,18 Z" fill="currentColor" stroke="none" />
+                    <path d="M70,16 C70,12 75,9 80,12 C77,14 73,15 70,16 Z" fill="currentColor" stroke="none" />
+
+                    <path d="M165,16 C165,12 160,9 155,12 C158,14 162,15 165,16 Z" fill="currentColor" stroke="none" />
+                    <path d="M145,18 C145,22 140,25 135,22 C138,20 142,19 145,18 Z" fill="currentColor" stroke="none" />
+                    <path d="M130,16 C130,12 125,9 120,12 C123,14 127,15 130,16 Z" fill="currentColor" stroke="none" />
+
+                    <circle cx="27" cy="12" r="0.75" fill="currentColor" stroke="none" />
+                    <circle cx="48" cy="18" r="0.75" fill="currentColor" stroke="none" />
+                    <circle cx="82" cy="11" r="0.75" fill="currentColor" stroke="none" />
+                    <circle cx="173" cy="12" r="0.75" fill="currentColor" stroke="none" />
+                    <circle cx="152" cy="18" r="0.75" fill="currentColor" stroke="none" />
+                    <circle cx="118" cy="11" r="0.75" fill="currentColor" stroke="none" />
+                </svg>
 
                 <div
                     class="font-bodoni text-sm sm:text-base md:text-lg leading-relaxed text-white/90 whitespace-pre-line mb-6 px-4">
@@ -31,7 +54,7 @@
                 </div>
 
                 <Link :href="introSection?.link_url || '/about'"
-                    class="font-cinzel inline-block px-8 py-3 border border-white text-xs sm:text-sm tracking-widest uppercase hover:bg-white hover:text-[#578FCA] active:scale-95 active:bg-white active:text-[#A1E3F9] transition-all duration-300">
+                    class="font-cinzel inline-block px-8 py-3 border border-white text-white text-xs sm:text-sm tracking-widest uppercase hover:bg-white hover:text-[#578FCA] active:scale-95 active:bg-white active:text-[#A1E3F9] transition-all duration-300">
                     {{ t.button }}
                 </Link>
 
@@ -90,13 +113,13 @@ const translations = {
         subtitle: 'Captured with Love',
         title: 'The Art of Memories',
         content: 'Kami mengabadikan momen berharga Anda dengan penuh cinta, mengubah detik yang berlalu menjadi karya seni abadi. Biarkan kami membingkai memori Anda agar dikenang selamanya.',
-        button: 'Pelajari Lebih Lanjut'
+        button: 'Kenali Kami Lebih Lanjut'
     },
     en: {
         subtitle: 'Captured with Love',
         title: 'The Art of Memories',
         content: 'We capture your precious moments with love and passion, turning fleeting seconds into timeless art. Let us frame your memories so they can be cherished forever.',
-        button: 'Learn More'
+        button: 'Learn More About Us'
     }
 };
 
