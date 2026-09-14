@@ -43,6 +43,8 @@
 
         <div class="relative z-20 bg-[#578FCA] p-8 min-h-screen text-white border-t border-[#3674B5]">
         </div>
+
+        <Footer />
     </div>
 </template>
 
@@ -50,6 +52,7 @@
 import { ref, computed, onMounted } from 'vue';
 import Navbar from '@/components/Navbar.vue';
 import HeroSlideshow from '@/components/HeroSlideshow.vue';
+import Footer from '@/components/Footer.vue';
 import { Link } from '@inertiajs/vue3';
 
 interface SlideMedia {
