@@ -24,28 +24,41 @@
                     {{ introSection?.title || t.title }}
                 </h2>
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-32 sm:w-40 md:w-56 h-auto text-white/70 mb-3 mt-1"
-                    viewBox="0 0 200 30" fill="none" stroke="currentColor">
-                    <path d="M100,2 C101,9 104,13 111,15 C104,17 101,21 100,28 C99,21 96,17 89,15 C96,13 99,9 100,2 Z"
-                        fill="currentColor" stroke="none" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-64 sm:w-80 md:w-[450px] h-auto text-white/90 mb-3 mt-1"
+                    viewBox="0 0 300 40" fill="none" stroke="currentColor">
 
-                    <path d="M20,15 C40,15 60,19 85,15" stroke-width="0.75" stroke-linecap="round" />
-                    <path d="M180,15 C160,15 140,19 115,15" stroke-width="0.75" stroke-linecap="round" />
+                    <path d="M 25,20 L 275,20" stroke-width="1.25" stroke-linecap="round" />
 
-                    <path d="M35,16 C35,12 40,9 45,12 C42,14 38,15 35,16 Z" fill="currentColor" stroke="none" />
-                    <path d="M55,18 C55,22 60,25 65,22 C62,20 58,19 55,18 Z" fill="currentColor" stroke="none" />
-                    <path d="M70,16 C70,12 75,9 80,12 C77,14 73,15 70,16 Z" fill="currentColor" stroke="none" />
+                    <path d="M 25,20 L 12,20" stroke-width="1.25" stroke-linecap="round" />
+                    <path d="M 18,20 C 18,13 8,10 5,14 C 2,17 8,20 12,20" stroke-width="1.25" stroke-linecap="round" />
+                    <path d="M 18,20 C 18,27 8,30 5,26 C 2,23 8,20 12,20" stroke-width="1.25" stroke-linecap="round" />
+                    <circle cx="9" cy="20" r="1.25" fill="currentColor" stroke="none" />
+                    <path d="M 25,20 L 29,17 L 29,23 Z" fill="currentColor" stroke="none" />
 
-                    <path d="M165,16 C165,12 160,9 155,12 C158,14 162,15 165,16 Z" fill="currentColor" stroke="none" />
-                    <path d="M145,18 C145,22 140,25 135,22 C138,20 142,19 145,18 Z" fill="currentColor" stroke="none" />
-                    <path d="M130,16 C130,12 125,9 120,12 C123,14 127,15 130,16 Z" fill="currentColor" stroke="none" />
+                    <path d="M 275,20 L 288,20" stroke-width="1.25" stroke-linecap="round" />
+                    <path d="M 282,20 C 282,13 292,10 295,14 C 298,17 292,20 288,20" stroke-width="1.25"
+                        stroke-linecap="round" />
+                    <path d="M 282,20 C 282,27 292,30 295,26 C 298,23 292,20 288,20" stroke-width="1.25"
+                        stroke-linecap="round" />
+                    <circle cx="291" cy="20" r="1.25" fill="currentColor" stroke="none" />
+                    <path d="M 275,20 L 271,17 L 271,23 Z" fill="currentColor" stroke="none" />
 
-                    <circle cx="27" cy="12" r="0.75" fill="currentColor" stroke="none" />
-                    <circle cx="48" cy="18" r="0.75" fill="currentColor" stroke="none" />
-                    <circle cx="82" cy="11" r="0.75" fill="currentColor" stroke="none" />
-                    <circle cx="173" cy="12" r="0.75" fill="currentColor" stroke="none" />
-                    <circle cx="152" cy="18" r="0.75" fill="currentColor" stroke="none" />
-                    <circle cx="118" cy="11" r="0.75" fill="currentColor" stroke="none" />
+                    <g transform="translate(150, 20)">
+                        <path d="M 0,-6 C -2,-14 -8,-16 -10,-12 C -12,-8 -4,-2 0,0 Z" fill="currentColor"
+                            stroke="none" />
+                        <path d="M 0,-6 C 0,-18 0,-20 0,-17 C 0,-14 0,-4 0,0 Z" fill="currentColor" stroke="none" />
+                        <path d="M 0,-6 C 2,-14 8,-16 10,-12 C 12,-8 4,-2 0,0 Z" fill="currentColor" stroke="none" />
+
+                        <circle cx="0" cy="8" r="1.75" fill="currentColor" stroke="none" />
+                        <circle cx="-7" cy="8" r="1.25" fill="currentColor" stroke="none" />
+                        <circle cx="7" cy="8" r="1.25" fill="currentColor" stroke="none" />
+
+                        <path d="M -12,0 C -12,-10 -4,-12 -2,-5 C 0,2 -10,8 -20,2 C -28,-2 -35,1 -40,6"
+                            stroke-width="1.25" stroke-linecap="round" />
+
+                        <path d="M 12,0 C 12,-10 4,-12 2,-5 C 0,2 10,8 20,2 C 28,-2 35,1 40,6" stroke-width="1.25"
+                            stroke-linecap="round" />
+                    </g>
                 </svg>
 
                 <div
