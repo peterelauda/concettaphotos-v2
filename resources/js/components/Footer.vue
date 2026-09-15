@@ -3,62 +3,73 @@
 
         <div class="w-full flex items-center justify-center mb-6 md:mb-10 px-3 sm:px-6 md:px-8 text-[#3674B5]">
 
+            <!-- Panah Kiri -->
             <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 flex-shrink-0 fill-current" viewBox="0 0 10 10">
                 <polygon points="10,4.5 4,1 0,5 4,9 10,5.5" />
             </svg>
 
-            <div class="flex-grow h-[1.5px] bg-current"></div>
+            <!-- Garis Kiri -->
+            <div class="flex-grow h-[1px] scale-y-50 opacity-75 bg-current"></div>
 
-            <!-- Luxury Border -->
+            <!-- Luxury Border Tengah -->
             <svg class="w-64 sm:w-80 md:w-[450px] lg:w-[500px] h-auto flex-shrink-0 text-current drop-shadow-sm px-1 sm:px-2"
                 viewBox="0 0 300 30" fill="none" stroke="currentColor">
 
                 <g transform="translate(150, 15)">
 
+                    <!-- Center Dots -->
                     <circle cx="0" cy="0" r="3.5" fill="currentColor" stroke="none" />
                     <circle cx="0" cy="-9" r="1.5" fill="currentColor" stroke="none" />
                     <circle cx="0" cy="9" r="1.5" fill="currentColor" stroke="none" />
 
-                    <path d="M -8,0 Q -15,-8 -22,-8 C -28,-8 -28,-2 -24,-2 C -22,-2 -22,-4 -22,-4" stroke-width="1"
-                        stroke-linecap="round" />
+                    <!-- Left Swirls -->
+                    <path d="M -8,0 Q -15,-8 -22,-8 C -28,-8 -28,-2 -24,-2 C -22,-2 -22,-4 -22,-4" stroke-width="0.5"
+                        stroke-linecap="round" vector-effect="non-scaling-stroke" />
                     <circle cx="-22" cy="-4" r="1.5" fill="currentColor" stroke="none" />
 
-                    <path d="M -8,0 Q -15,8 -22,8 C -28,8 -28,2 -24,2 C -22,2 -22,4 -22,4" stroke-width="1"
-                        stroke-linecap="round" />
+                    <path d="M -8,0 Q -15,8 -22,8 C -28,8 -28,2 -24,2 C -22,2 -22,4 -22,4" stroke-width="0.5"
+                        stroke-linecap="round" vector-effect="non-scaling-stroke" />
                     <circle cx="-22" cy="4" r="1.5" fill="currentColor" stroke="none" />
 
-                    <path d="M -28,0 L -50,0" stroke-width="1" />
-                    <circle cx="-55" cy="0" r="3.5" fill="none" stroke-width="1" />
+                    <!-- Left Lines & Rings -->
+                    <path d="M -28,0 L -50,0" stroke-width="0.5" vector-effect="non-scaling-stroke" />
+                    <circle cx="-55" cy="0" r="3.5" fill="none" stroke-width="0.5" vector-effect="non-scaling-stroke" />
 
-                    <path d="M -60,0 L -85,0" stroke-width="1" />
-                    <circle cx="-90" cy="0" r="3.5" fill="none" stroke-width="1" />
+                    <path d="M -60,0 L -85,0" stroke-width="0.5" vector-effect="non-scaling-stroke" />
+                    <circle cx="-90" cy="0" r="3.5" fill="none" stroke-width="0.5" vector-effect="non-scaling-stroke" />
 
-                    <path d="M -95,0 L -150,0" stroke-width="1" />
+                    <path d="M -95,0 L -150,0" stroke-width="0.5" vector-effect="non-scaling-stroke" />
 
-                    <path d="M 8,0 Q 15,-8 22,-8 C 28,-8 28,-2 24,-2 C 22,-2 22,-4 22,-4" stroke-width="1"
-                        stroke-linecap="round" />
+
+                    <!-- Right Swirls -->
+                    <path d="M 8,0 Q 15,-8 22,-8 C 28,-8 28,-2 24,-2 C 22,-2 22,-4 22,-4" stroke-width="0.5"
+                        stroke-linecap="round" vector-effect="non-scaling-stroke" />
                     <circle cx="22" cy="-4" r="1.5" fill="currentColor" stroke="none" />
 
-                    <path d="M 8,0 Q 15,8 22,8 C 28,8 28,2 24,2 C 22,2 22,4 22,4" stroke-width="1"
-                        stroke-linecap="round" />
+                    <path d="M 8,0 Q 15,8 22,8 C 28,8 28,2 24,2 C 22,2 22,4 22,4" stroke-width="0.5"
+                        stroke-linecap="round" vector-effect="non-scaling-stroke" />
                     <circle cx="22" cy="4" r="1.5" fill="currentColor" stroke="none" />
 
-                    <path d="M 28,0 L 50,0" stroke-width="1" />
-                    <circle cx="55" cy="0" r="3.5" fill="none" stroke-width="1" />
+                    <!-- Right Lines & Rings -->
+                    <path d="M 28,0 L 50,0" stroke-width="0.5" vector-effect="non-scaling-stroke" />
+                    <circle cx="55" cy="0" r="3.5" fill="none" stroke-width="0.5" vector-effect="non-scaling-stroke" />
 
-                    <path d="M 60,0 L 85,0" stroke-width="1" />
-                    <circle cx="90" cy="0" r="3.5" fill="none" stroke-width="1" />
+                    <path d="M 60,0 L 85,0" stroke-width="0.5" vector-effect="non-scaling-stroke" />
+                    <circle cx="90" cy="0" r="3.5" fill="none" stroke-width="0.5" vector-effect="non-scaling-stroke" />
 
-                    <path d="M 95,0 L 150,0" stroke-width="1" />
+                    <path d="M 95,0 L 150,0" stroke-width="0.5" vector-effect="non-scaling-stroke" />
 
                 </g>
             </svg>
 
-            <div class="flex-grow h-[1.5px] bg-current"></div>
+            <!-- Garis Kanan -->
+            <div class="flex-grow h-[1px] scale-y-50 opacity-75 bg-current"></div>
 
+            <!-- Panah Kanan -->
             <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 flex-shrink-0 fill-current" viewBox="0 0 10 10">
                 <polygon points="0,4.5 6,1 10,5 6,9 0,5.5" />
             </svg>
+
         </div>
 
         <div

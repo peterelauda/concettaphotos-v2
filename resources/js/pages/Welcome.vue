@@ -24,42 +24,72 @@
                     {{ introSection?.title || t.title }}
                 </h2>
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-64 sm:w-80 md:w-[450px] h-auto text-white/90 mb-3 mt-1"
-                    viewBox="0 0 300 40" fill="none" stroke="currentColor">
+                <div class="w-full flex items-center justify-center mb-6 md:mb-10 px-3 sm:px-6 md:px-8 text-white/90">
 
-                    <path d="M 25,20 L 275,20" stroke-width="1.25" stroke-linecap="round" />
+                    <!-- Ujung Kiri (Panah & Cincin Keriting) -->
+                    <svg class="w-6 sm:w-8 md:w-10 h-auto flex-shrink-0 fill-current stroke-current"
+                        viewBox="0 0 30 20">
+                        <polygon points="2,10 12,6 9,10 12,14" stroke="none" />
+                        <path d="M 30,10 L 9,10" stroke-width="0.75" vector-effect="non-scaling-stroke" />
+                        <path d="M 20,10 C 20,2 10,2 13,7" fill="none" stroke-width="0.75" stroke-linecap="round"
+                            vector-effect="non-scaling-stroke" />
+                        <circle cx="13" cy="7" r="1.25" stroke="none" />
+                        <path d="M 20,10 C 20,18 10,18 13,13" fill="none" stroke-width="0.75" stroke-linecap="round"
+                            vector-effect="non-scaling-stroke" />
+                        <circle cx="13" cy="13" r="1.25" stroke="none" />
+                    </svg>
 
-                    <path d="M 25,20 L 12,20" stroke-width="1.25" stroke-linecap="round" />
-                    <path d="M 18,20 C 18,13 8,10 5,14 C 2,17 8,20 12,20" stroke-width="1.25" stroke-linecap="round" />
-                    <path d="M 18,20 C 18,27 8,30 5,26 C 2,23 8,20 12,20" stroke-width="1.25" stroke-linecap="round" />
-                    <circle cx="9" cy="20" r="1.25" fill="currentColor" stroke="none" />
-                    <path d="M 25,20 L 29,17 L 29,23 Z" fill="currentColor" stroke="none" />
+                    <!-- Garis Kiri Fleksibel -->
+                    <div class="flex-grow h-[1px] bg-current" style="transform: scaleY(0.75);"></div>
 
-                    <path d="M 275,20 L 288,20" stroke-width="1.25" stroke-linecap="round" />
-                    <path d="M 282,20 C 282,13 292,10 295,14 C 298,17 292,20 288,20" stroke-width="1.25"
-                        stroke-linecap="round" />
-                    <path d="M 282,20 C 282,27 292,30 295,26 C 298,23 292,20 288,20" stroke-width="1.25"
-                        stroke-linecap="round" />
-                    <circle cx="291" cy="20" r="1.25" fill="currentColor" stroke="none" />
-                    <path d="M 275,20 L 271,17 L 271,23 Z" fill="currentColor" stroke="none" />
+                    <!-- Motif Mewah Tengah (Mahkota & Swirls, garis lurus tidak menembus tengah) -->
+                    <svg class="w-48 sm:w-64 md:w-80 lg:w-[400px] h-auto flex-shrink-0 fill-current stroke-current drop-shadow-sm px-1 sm:px-2"
+                        viewBox="0 0 240 40">
+                        <g transform="translate(120, 20)">
 
-                    <g transform="translate(150, 20)">
-                        <path d="M 0,-6 C -2,-14 -8,-16 -10,-12 C -12,-8 -4,-2 0,0 Z" fill="currentColor"
-                            stroke="none" />
-                        <path d="M 0,-6 C 0,-18 0,-20 0,-17 C 0,-14 0,-4 0,0 Z" fill="currentColor" stroke="none" />
-                        <path d="M 0,-6 C 2,-14 8,-16 10,-12 C 12,-8 4,-2 0,0 Z" fill="currentColor" stroke="none" />
+                            <!-- Garis Masuk Kiri & Swirl Kiri -->
+                            <path d="M -120,0 L -40,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
+                            <path
+                                d="M -40, 0 C -25, 0 -25, -14 -12, -14 C -2, -14 2, -2 -8, -2 C -15, -2 -18, -8 -12, -10"
+                                stroke-width="0.75" stroke-linecap="round" fill="none"
+                                vector-effect="non-scaling-stroke" />
 
-                        <circle cx="0" cy="8" r="1.75" fill="currentColor" stroke="none" />
-                        <circle cx="-7" cy="8" r="1.25" fill="currentColor" stroke="none" />
-                        <circle cx="7" cy="8" r="1.25" fill="currentColor" stroke="none" />
+                            <!-- Garis Masuk Kanan & Swirl Kanan -->
+                            <path d="M 120,0 L 40,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
+                            <path d="M 40, 0 C 25, 0 25, -14 12, -14 C 2, -14 -2, -2 8, -2 C 15, -2 18, -8 12, -10"
+                                stroke-width="0.75" stroke-linecap="round" fill="none"
+                                vector-effect="non-scaling-stroke" />
 
-                        <path d="M -12,0 C -12,-10 -4,-12 -2,-5 C 0,2 -10,8 -20,2 C -28,-2 -35,1 -40,6"
-                            stroke-width="1.25" stroke-linecap="round" />
+                            <!-- Mahkota (Crown Petals) -->
+                            <path d="M -1.5,-4 C -2,-12 -2,-16 0,-18 C 2,-16 2,-12 1.5,-4 Z" stroke="none" />
+                            <path d="M -2,-2 C -8,-10 -14,-12 -16,-8 C -10,-4 -4,-1 0,0 Z" stroke="none" />
+                            <path d="M 2,-2 C 8,-10 14,-12 16,-8 C 10,-4 4,-1 0,0 Z" stroke="none" />
 
-                        <path d="M 12,0 C 12,-10 4,-12 2,-5 C 0,2 10,8 20,2 C 28,-2 35,1 40,6" stroke-width="1.25"
-                            stroke-linecap="round" />
-                    </g>
-                </svg>
+                            <!-- Titik Bawah (Bottom Dots) -->
+                            <circle cx="0" cy="5" r="2.25" stroke="none" />
+                            <circle cx="-9" cy="5" r="1.25" stroke="none" />
+                            <circle cx="9" cy="5" r="1.25" stroke="none" />
+
+                        </g>
+                    </svg>
+
+                    <!-- Garis Kanan Fleksibel -->
+                    <div class="flex-grow h-[1px] bg-current" style="transform: scaleY(0.75);"></div>
+
+                    <!-- Ujung Kanan (Panah & Cincin Keriting) -->
+                    <svg class="w-6 sm:w-8 md:w-10 h-auto flex-shrink-0 fill-current stroke-current"
+                        viewBox="0 0 30 20">
+                        <polygon points="28,10 18,6 21,10 18,14" stroke="none" />
+                        <path d="M 0,10 L 21,10" stroke-width="0.75" vector-effect="non-scaling-stroke" />
+                        <path d="M 10,10 C 10,2 20,2 17,7" fill="none" stroke-width="0.75" stroke-linecap="round"
+                            vector-effect="non-scaling-stroke" />
+                        <circle cx="17" cy="7" r="1.25" stroke="none" />
+                        <path d="M 10,10 C 10,18 20,18 17,13" fill="none" stroke-width="0.75" stroke-linecap="round"
+                            vector-effect="non-scaling-stroke" />
+                        <circle cx="17" cy="13" r="1.25" stroke="none" />
+                    </svg>
+
+                </div>
 
                 <div
                     class="font-bodoni text-sm sm:text-base md:text-lg leading-relaxed text-white/90 whitespace-pre-line mb-6 px-4">
