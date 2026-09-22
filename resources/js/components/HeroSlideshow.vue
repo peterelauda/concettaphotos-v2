@@ -25,6 +25,56 @@
                     </path>
                 </svg>
 
+                <div class="w-full flex items-center justify-center my-1 px-4 sm:px-8 md:px-12 text-white">
+
+                    <div class="flex-grow h-[0.75px] bg-current"></div>
+
+                    <svg class="w-64 sm:w-80 md:w-[420px] h-auto flex-shrink-0 text-current px-3" viewBox="0 0 420 40"
+                        fill="none" stroke="currentColor">
+                        <g transform="translate(210, 20)">
+
+                            <path d="M -200,0 L -95,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
+                            <path d="M 95,0 L 200,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
+
+                            <path d="M -85,0 C -80,-10 -65,-10 -60,0 C -55,10 -70,12 -75,4" stroke-width="0.75"
+                                stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none" />
+                            <path d="M -65,-3 Q -55,-14 -42,-6 C -48,1 -58,3 -65,-3 Z" stroke-width="0.75"
+                                stroke-linejoin="round" vector-effect="non-scaling-stroke" fill="none" />
+
+                            <path d="M -50,0 C -45,-7 -35,-7 -30,0 C -25,7 -35,9 -40,3" stroke-width="0.75"
+                                stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none" />
+                            <path d="M -38,-2 Q -30,-11 -20,-4 C -25,1 -32,2 -38,-2 Z" stroke-width="0.75"
+                                stroke-linejoin="round" vector-effect="non-scaling-stroke" fill="none" />
+
+                            <path d="M 85,0 C 80,-10 65,-10 60,0 C 55,10 70,12 75,4" stroke-width="0.75"
+                                stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none" />
+                            <path d="M 65,-3 Q 55,-14 42,-6 C 48,1 58,3 65,-3 Z" stroke-width="0.75"
+                                stroke-linejoin="round" vector-effect="non-scaling-stroke" fill="none" />
+
+                            <path d="M 50,0 C 45,-7 35,-7 30,0 C 25,7 35,9 40,3" stroke-width="0.75"
+                                stroke-linecap="round" vector-effect="non-scaling-stroke" fill="none" />
+                            <path d="M 38,-2 Q 30,-11 20,-4 C 25,1 32,2 38,-2 Z" stroke-width="0.75"
+                                stroke-linejoin="round" vector-effect="non-scaling-stroke" fill="none" />
+
+                            <circle cx="-88" cy="0" r="1.25" fill="currentColor" stroke="none" />
+                            <circle cx="88" cy="0" r="1.25" fill="currentColor" stroke="none" />
+
+                            <circle cx="0" cy="0" r="3.5" fill="currentColor" stroke="none" />
+                            <circle cx="0" cy="0" r="7" fill="none" stroke-width="0.75"
+                                vector-effect="non-scaling-stroke" />
+                            <circle cx="0" cy="0" r="10.5" fill="none" stroke-width="0.5"
+                                vector-effect="non-scaling-stroke" opacity="0.7" />
+
+                            <circle cx="-16" cy="0" r="1.25" fill="currentColor" stroke="none" />
+                            <circle cx="16" cy="0" r="1.25" fill="currentColor" stroke="none" />
+
+                        </g>
+                    </svg>
+
+                    <div class="flex-grow h-[0.75px] bg-current"></div>
+
+                </div>
+
                 <h1
                     class="col-lg-6 mx-auto mb-4 imperial-script-regular text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal solid-shadow-text">
                     "Let’s make your memories remains forever."
