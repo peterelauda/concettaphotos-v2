@@ -170,3 +170,9 @@
         @apply bg-background text-foreground;
     }
 }
+
+.imperial-script-regular {
+  font-family: "Imperial Script", cursive;
+  font-weight: 200;
+  font-style: normal;
+}
