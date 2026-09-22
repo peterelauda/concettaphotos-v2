@@ -29,11 +29,18 @@ class HomeController extends Controller
             ->where('is_active', true)
             ->get(['id', 'title', 'link_url', 'type']);
 
+        $servicesSections = Section::where('type', 'service_carousel')
+            ->where('is_active', true)
+            ->with(['media' => fn($q) => $q->where('is_active', true)->orderBy('sort_order', 'asc')])
+            ->orderBy('id', 'asc')
+            ->get();
+
         return Inertia::render('Welcome', [
             'slides' => $slides,
             'aboutItems' => $menuItems->where('type', 'about')->values(),
             'servicesItems' => $menuItems->where('type', 'services')->values(),
             'introSection' => $introSection,
+            'servicesSections' => $servicesSections,
         ]);
     }
 }

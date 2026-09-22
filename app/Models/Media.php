@@ -16,7 +16,9 @@ class Media extends Model
     protected function fullUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->file_path ? Storage::url($this->file_path) : null,
+            get: fn() => $this->file_path
+                ? (str_starts_with($this->file_path, 'http') ? $this->file_path : Storage::url($this->file_path))
+                : null,
         );
     }
 
