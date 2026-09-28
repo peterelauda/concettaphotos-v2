@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Navbar :aboutItems="aboutItems" :servicesItems="servicesItems" @lang-changed="lang = $event" />
+        <Navbar :aboutItems="aboutItems" :servicesItems="servicesSections" @lang-changed="lang = $event" />
 
         <HeroSlideshow v-if="slides && slides.length > 0" :slides="slides" />
 
@@ -11,17 +11,17 @@
         <div data-navbar-scroll-target
             class="relative z-20 bg-[#3674B5] pt-32 pb-32 sm:pt-40 sm:pb-40 px-6 border-t border-[#3674B5] flex flex-col items-center justify-center text-center overflow-hidden">
 
-            <div ref="introRef" :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'"
+            <div ref="introRef" :class="isIntroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'"
                 class="max-w-3xl mx-auto flex flex-col items-center gap-5 sm:gap-6 transition-all duration-1000 ease-out">
 
                 <h3
                     class="imperial-script-regular text-4xl sm:text-5xl md:text-6xl text-white font-light leading-tight drop-shadow-sm">
-                    {{ introSection?.subtitle || t.subtitle }}
+                    {{ getLocalized(introSection?.subtitle, lang, t.subtitle) }}
                 </h3>
 
                 <h2
                     class="font-cinzel text-white text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] mb-1">
-                    {{ introSection?.title || t.title }}
+                    {{ getLocalized(introSection?.title, lang, t.title) }}
                 </h2>
 
                 <div class="w-full flex items-center justify-center mb-6 md:mb-10 px-3 sm:px-6 md:px-8 text-white/90">
@@ -93,7 +93,7 @@
 
                 <div
                     class="font-bodoni text-sm sm:text-base md:text-lg leading-relaxed text-white/90 whitespace-pre-line mb-6 px-4">
-                    {{ introSection?.content || t.content }}
+                    {{ getLocalized(introSection?.content, lang, t.content) }}
                 </div>
 
                 <Link :href="introSection?.link_url || '/about'"
@@ -104,160 +104,143 @@
             </div>
         </div>
 
-        <!-- NEW: Dynamic Services Carousel Section (Photography Context) -->
+        <!-- SERVICES SECTION -->
         <div class="relative z-20 bg-[#FFFFFF] pt-24 pb-32 border-t border-[#3674B5] flex flex-col overflow-hidden">
 
-            <!-- Heading Container -->
-            <div class="max-w-3xl mx-auto px-6 text-center flex flex-col items-center gap-2 mb-10 md:mb-12">
-                <h2
-                    class="font-cinzel text-3xl md:text-4xl lg:text-5xl text-[#3674B5] font-bold tracking-widest uppercase">
-                    {{ t.servicesHeading }}
-                </h2>
+            <div ref="servicesAnimRef"
+                :class="isServicesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
+                class="transition-all duration-1000 ease-out">
 
-                <!-- Desain Border Variatif Kustom (Solid, Uniform Outline, No Gradients/Fills) -->
-                <div class="w-full flex items-center justify-center my-6 md:my-8 px-4 sm:px-8 md:px-12 text-[#3674B5]">
+                <div class="max-w-3xl mx-auto px-6 text-center flex flex-col items-center gap-2 mb-10 md:mb-12">
+                    <h2
+                        class="font-cinzel text-3xl md:text-4xl lg:text-5xl text-[#3674B5] font-bold tracking-widest uppercase">
+                        {{ t.servicesHeading }}
+                    </h2>
 
-                    <!-- Garis Sisi Kiri (Solid Murni) -->
-                    <div class="flex-grow h-[0.75px] bg-current"></div>
+                    <div
+                        class="w-full flex items-center justify-center my-6 md:my-8 px-4 sm:px-8 md:px-12 text-[#3674B5]">
+                        <div class="flex-grow h-[0.75px] bg-current"></div>
+                        <svg class="w-48 sm:w-64 md:w-80 h-auto flex-shrink-0 text-current px-3" viewBox="0 0 300 30"
+                            fill="none" stroke="currentColor">
+                            <g transform="translate(150, 15)">
+                                <path d="M -140,0 L -55,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
+                                <path d="M 55,0 L 140,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
+                                <circle cx="-45" cy="0" r="2.5" fill="none" stroke-width="0.75"
+                                    vector-effect="non-scaling-stroke" />
+                                <circle cx="-45" cy="0" r="1" fill="currentColor" stroke="none" />
+                                <circle cx="45" cy="0" r="2.5" fill="none" stroke-width="0.75"
+                                    vector-effect="non-scaling-stroke" />
+                                <circle cx="45" cy="0" r="1" fill="currentColor" stroke="none" />
+                                <path
+                                    d="M -35,0 Q -25,-8 -15,-6 C -8,-5 -5,-1 -10,0 C -12,1 -15,4 -20,4 C -28,4 -30,-2 -35,0 Z"
+                                    stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"
+                                    vector-effect="non-scaling-stroke" fill="none" />
+                                <path d="M 35,0 Q 25,-8 15,-6 C 8,-5 5,-1 10,0 C 12,1 15,4 20,4 C 28,4 30,-2 35,0 Z"
+                                    stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"
+                                    vector-effect="non-scaling-stroke" fill="none" />
+                                <circle cx="0" cy="0" r="3" fill="currentColor" stroke="none" />
+                                <circle cx="0" cy="0" r="6" fill="none" stroke-width="0.75"
+                                    vector-effect="non-scaling-stroke" />
+                                <circle cx="-12" cy="0" r="1.25" fill="currentColor" stroke="none" />
+                                <circle cx="12" cy="0" r="1.25" fill="currentColor" stroke="none" />
+                            </g>
+                        </svg>
+                        <div class="flex-grow h-[0.75px] bg-current"></div>
+                    </div>
 
-                    <!-- SVG Ornamen Luxury Tengah -->
-                    <svg class="w-48 sm:w-64 md:w-80 h-auto flex-shrink-0 text-current px-3" viewBox="0 0 300 30"
-                        fill="none" stroke="currentColor">
-                        <g transform="translate(150, 15)">
-
-                            <!-- Garis Penghubung Samping -->
-                            <path d="M -140,0 L -55,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
-                            <path d="M 55,0 L 140,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
-
-                            <!-- Cincin & Titik Aksen Kiri -->
-                            <circle cx="-45" cy="0" r="2.5" fill="none" stroke-width="0.75"
-                                vector-effect="non-scaling-stroke" />
-                            <circle cx="-45" cy="0" r="1" fill="currentColor" stroke="none" />
-
-                            <!-- Cincin & Titik Aksen Kanan -->
-                            <circle cx="45" cy="0" r="2.5" fill="none" stroke-width="0.75"
-                                vector-effect="non-scaling-stroke" />
-                            <circle cx="45" cy="0" r="1" fill="currentColor" stroke="none" />
-
-                            <!-- Ornamen Ukiran Garis (Left Flourish - Outline Only) -->
-                            <path
-                                d="M -35,0 Q -25,-8 -15,-6 C -8,-5 -5,-1 -10,0 C -12,1 -15,4 -20,4 C -28,4 -30,-2 -35,0 Z"
-                                stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"
-                                vector-effect="non-scaling-stroke" fill="none" />
-
-                            <!-- Ornamen Ukiran Garis (Right Flourish - Outline Only) -->
-                            <path d="M 35,0 Q 25,-8 15,-6 C 8,-5 5,-1 10,0 C 12,1 15,4 20,4 C 28,4 30,-2 35,0 Z"
-                                stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"
-                                vector-effect="non-scaling-stroke" fill="none" />
-
-                            <!-- Inti Pusat (Solid Dot & Konsisten Outline Ring) -->
-                            <circle cx="0" cy="0" r="3" fill="currentColor" stroke="none" />
-                            <circle cx="0" cy="0" r="6" fill="none" stroke-width="0.75"
-                                vector-effect="non-scaling-stroke" />
-                            <circle cx="-12" cy="0" r="1.25" fill="currentColor" stroke="none" />
-                            <circle cx="12" cy="0" r="1.25" fill="currentColor" stroke="none" />
-
-                        </g>
-                    </svg>
-
-                    <!-- Garis Sisi Kanan (Solid Murni) -->
-                    <div class="flex-grow h-[0.75px] bg-current"></div>
-
+                    <p
+                        class="font-bodoni text-base md:text-lg text-[#3674B5]/80 font-light leading-relaxed max-w-2xl mt-1">
+                        {{ t.servicesDesc }}
+                    </p>
                 </div>
 
-                <p class="font-bodoni text-base md:text-lg text-[#3674B5]/80 font-light leading-relaxed max-w-2xl mt-1">
-                    {{ t.servicesDesc }}
-                </p>
-            </div>
+                <div ref="carouselRef"
+                    class="w-full overflow-x-auto hide-scrollbar flex gap-6 md:gap-10 pb-8 select-none transition-all duration-300"
+                    :class="[
+                        isDragging ? 'snap-none cursor-grabbing' : 'snap-x snap-mandatory cursor-grab',
+                        needsScrolling ? 'px-6 sm:px-12 md:px-20 justify-start' : 'px-6 justify-center'
+                    ]" @mousedown="onMouseDown" @mouseleave="onMouseLeave" @mouseup="onMouseUp"
+                    @mousemove="onMouseMove" @scroll="handleScroll">
 
-            <!-- Carousel Slider Container (Responsive: Centered if fits screen, otherwise left-to-right scroll/drag) -->
-            <div ref="carouselRef"
-                class="w-full overflow-x-auto hide-scrollbar flex gap-6 md:gap-10 pb-8 select-none transition-all duration-300"
-                :class="[
-                    isDragging ? 'snap-none cursor-grabbing' : 'snap-x snap-mandatory cursor-grab',
-                    needsScrolling ? 'px-6 sm:px-12 md:px-20 justify-start' : 'px-6 justify-center'
-                ]" @mousedown="onMouseDown" @mouseleave="onMouseLeave" @mouseup="onMouseUp" @mousemove="onMouseMove"
-                @scroll="handleScroll">
+                    <div v-for="(service, index) in servicesSections" :key="service.id"
+                        class="snap-center flex-shrink-0 w-[85vw] sm:w-[350px] md:w-[420px] flex flex-col gap-4 group">
 
-                <!-- Slide Item -->
-                <div v-for="service in servicesSections" :key="service.id"
-                    class="snap-center flex-shrink-0 w-[85vw] sm:w-[350px] md:w-[420px] flex flex-col gap-4 group">
+                        <div>
+                            <div
+                                class="block relative w-full aspect-[4/5] bg-[#F8F9FA] overflow-hidden shadow-sm rounded-sm">
+                                <!-- Mobile touch-screen zoom animation support: Animasi berjalan jika menjadi kartu teraktif di tengah layar ATAU di-hover -->
+                                <img v-if="service.media && service.media.length > 0"
+                                    :src="service.media[activePhotoMap[service.id] || 0].full_url"
+                                    :alt="getLocalized(service.title, lang)" :class="[
+                                        'w-full h-full object-cover transform-gpu transition-transform duration-700 ease-out pointer-events-none origin-center',
+                                        activeServiceIndex === index ? 'scale-105' : 'scale-100 md:group-hover:scale-105'
+                                    ]" />
+                                <div v-else
+                                    class="w-full h-full flex items-center justify-center text-[#3674B5]/40 font-bodoni text-sm pointer-events-none">
+                                    Image Unavailable
+                                </div>
+                            </div>
 
-                    <!-- Thumbnail/Image Area dengan Zoom Stabil & Tanpa Pergeseran Patahan -->
-                    <div>
-                        <div
-                            class="block relative w-full aspect-[4/5] bg-[#F8F9FA] overflow-hidden shadow-sm rounded-sm">
-                            <img v-if="service.media && service.media.length > 0"
-                                :src="service.media[activePhotoMap[service.id] || 0].full_url" :alt="service.title"
-                                class="w-full h-full object-cover transform-gpu transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none origin-center" />
-                            <div v-else
-                                class="w-full h-full flex items-center justify-center text-[#3674B5]/40 font-bodoni text-sm pointer-events-none">
-                                Image Unavailable
+                            <div class="flex justify-center items-center px-2 text-[#3674B5] mt-4">
+                                <button @click="prevPhoto(service)" aria-label="Previous photo"
+                                    class="hover:text-[#578FCA] transition-colors p-2 active:scale-95 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                        class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                                    </svg>
+                                </button>
+                                <button @click="nextPhoto(service)" aria-label="Next photo"
+                                    class="hover:text-[#578FCA] transition-colors p-2 active:scale-95 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                                        class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Tombol Navigasi SVG Chevron Kiri Kanan -->
-                        <div class="flex justify-center items-center px-2 text-[#3674B5] mt-4">
-                            <button @click="prevPhoto(service)" aria-label="Previous photo"
-                                class="hover:text-[#578FCA] transition-colors p-2 active:scale-95 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                                    class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                </svg>
-                            </button>
+                        <div class="flex flex-col gap-2 mt-1 px-2 text-center">
+                            <p
+                                class="imperial-script-regular text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#578FCA] font-normal tracking-widest">
+                                {{ getLocalized(service.subtitle, lang) }}
+                            </p>
+                            <Link :href="service.link_url || '#'" @click="handleLinkClick($event)"
+                                class="font-cinzel text-2xl sm:text-3xl md:text-4xl text-[#3674B5] font-bold hover:text-[#578FCA] transition-colors">
+                                {{ getLocalized(service.title, lang) }}
+                            </Link>
 
-                            <button @click="nextPhoto(service)" aria-label="Next photo"
-                                class="hover:text-[#578FCA] transition-colors p-2 active:scale-95 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                                    class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+                            <p
+                                class="font-bodoni text-sm sm:text-base md:text-lg text-[#3674B5]/80 font-light leading-relaxed mt-1">
+                                {{ getLocalized(service.content, lang) }}
+                            </p>
+
+                            <Link :href="service.link_url || '#'" @click="handleLinkClick($event)"
+                                class="font-cinzel mx-auto text-xs font-normal tracking-widest text-[#3674B5] hover:text-[#578FCA] uppercase mt-3 flex items-center gap-2 transition-colors w-max">
+                                {{ t.viewDetailBtn }}
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
                                 </svg>
-                            </button>
+                            </Link>
                         </div>
                     </div>
-
-                    <!-- Text Content -->
-                    <div class="flex flex-col gap-2 mt-1 px-2 text-center">
-                        <p
-                            class="imperial-script-regular text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#578FCA] font-normal tracking-widest">
-                            {{ service.subtitle }}
-                        </p>
-                        <Link :href="service.link_url || '#'" @click="handleLinkClick($event)"
-                            class="font-cinzel text-2xl sm:text-3xl md:text-4xl text-[#3674B5] font-bold hover:text-[#578FCA] transition-colors">
-                            {{ service.title }}
-                        </Link>
-                        <p
-                            class="font-bodoni text-sm md:text-base text-[#3674B5]/80 font-light line-clamp-3 leading-relaxed mt-1">
-                            {{ service.content }}
-                        </p>
-                        <!-- View More -->
-                        <Link :href="service.link_url || '#'" @click="handleLinkClick($event)"
-                            class="font-cinzel mx-auto text-xs font-normal tracking-widest text-[#3674B5] hover:text-[#578FCA] uppercase mt-3 flex items-center gap-2 transition-colors w-max">
-                            {{ t.viewDetailBtn }}
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </Link>
-                    </div>
                 </div>
-            </div>
 
-            <!-- Divided Line Pagination (Responsif berdasarkan kondisi layar & kebutuhan scroll) -->
-            <div v-if="needsScrolling && servicesSections && servicesSections.length > 0"
-                class="flex items-center justify-center gap-2 md:gap-3 mt-8 w-full max-w-[200px] md:max-w-xs mx-auto">
-                <button v-for="(service, index) in servicesSections" :key="service.id" @click="scrollToService(index)"
-                    aria-label="Go to slide"
-                    class="flex-1 h-[2px] md:h-[3px] transition-all duration-300 rounded-full cursor-pointer hover:bg-[#3674B5]/70"
-                    :class="activeServiceIndex === index ? 'bg-[#3674B5] scale-y-110' : 'bg-[#3674B5]/20'">
-                </button>
-            </div>
+                <div v-if="needsScrolling && servicesSections && servicesSections.length > 0"
+                    class="flex items-center justify-center gap-2 md:gap-3 mt-8 w-full max-w-[200px] md:max-w-xs mx-auto">
+                    <button v-for="(service, index) in servicesSections" :key="service.id"
+                        @click="scrollToService(index)" aria-label="Go to slide"
+                        class="flex-1 h-[2px] md:h-[3px] transition-all duration-300 rounded-full cursor-pointer hover:bg-[#3674B5]/70"
+                        :class="activeServiceIndex === index ? 'bg-[#3674B5] scale-y-110' : 'bg-[#3674B5]/20'">
+                    </button>
+                </div>
 
+            </div>
         </div>
 
         <div class="relative z-20 bg-[#578FCA] p-8 min-h-screen text-white border-t border-[#3674B5]">
@@ -291,9 +274,9 @@ interface SectionItem {
 interface DynamicSection {
     id: number
     key: string
-    title: string
-    subtitle: string
-    content: string
+    title: any
+    subtitle: any
+    content: any
     link_url: string
     media?: SlideMedia[]
 }
@@ -335,7 +318,26 @@ const translations = {
 
 const t = computed(() => translations[lang.value]);
 
-// Cek dinamis apakah lebar layar memadai untuk menampung semua kartu atau perlu scrolling
+const getLocalized = (data: any, langCode: string, fallback: string = '') => {
+    if (!data) return fallback;
+
+    let parsedData = data;
+
+    if (typeof data === 'string' && data.startsWith('{') && data.endsWith('}')) {
+        try {
+            parsedData = JSON.parse(data);
+        } catch (e) {
+            return data;
+        }
+    }
+
+    if (typeof parsedData === 'object' && parsedData !== null) {
+        return parsedData[langCode] || parsedData['id'] || parsedData['en'] || fallback;
+    }
+
+    return parsedData;
+};
+
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
 const updateWidth = () => {
@@ -361,19 +363,23 @@ const needsScrolling = computed(() => {
 
 // Intro Intersection Observer
 const introRef = ref<HTMLElement | null>(null);
-const isVisible = ref(false);
+const isIntroVisible = ref(false);
+
+const servicesAnimRef = ref<HTMLElement | null>(null);
+const isServicesVisible = ref(false);
 
 onMounted(() => {
     const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-            isVisible.value = true;
-            observer.disconnect();
-        }
-    }, { threshold: 0.2 });
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                if (entry.target === introRef.value) isIntroVisible.value = true;
+                if (entry.target === servicesAnimRef.value) isServicesVisible.value = true;
+            }
+        });
+    }, { threshold: 0.15 });
 
-    if (introRef.value) {
-        observer.observe(introRef.value);
-    }
+    if (introRef.value) observer.observe(introRef.value);
+    if (servicesAnimRef.value) observer.observe(servicesAnimRef.value);
 });
 
 // --- CAROUSEL LOGIC ---

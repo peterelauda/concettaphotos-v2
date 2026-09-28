@@ -107,17 +107,12 @@
                         <li v-for="item in aboutItems" :key="item.id">
                             <Link :href="item.link_url || '#'"
                                 class="block py-1 text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                                {{ item.title }}
+                                {{ getLocalized(item.title, lang) }}
                             </Link>
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <Link href="/pricelist"
-                        class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                        {{ t.priceList }}
-                    </Link>
-                </li>
+
                 <li>
                     <button @click="isServicesOpen = !isServicesOpen"
                         class="w-full flex justify-between items-start text-left text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
@@ -129,11 +124,19 @@
                         <li v-for="item in servicesItems" :key="item.id">
                             <Link :href="item.link_url || '#'"
                                 class="block py-1 text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
-                                {{ item.title }}
+                                {{ getLocalized(item.title, lang) }}
                             </Link>
                         </li>
                     </ul>
                 </li>
+
+                <li>
+                    <Link href="/pricelist"
+                        class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
+                        {{ t.priceList }}
+                    </Link>
+                </li>
+
                 <li>
                     <Link href="/testimonials"
                         class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
@@ -221,7 +224,7 @@ import { Link } from '@inertiajs/vue3'
 
 interface SectionItem {
     id: number
-    title: string
+    title: any
     link_url: string | null
 }
 
@@ -256,8 +259,34 @@ const handleScroll = () => {
     isScrolled.value = sectionTop <= 0
 }
 
+// HELPER UNTUK MENGAMBIL DATA BAHASA DARI STRING JSON MENTAH
+const getLocalized = (data: any, langCode: string, fallback: string = '') => {
+    if (!data) return fallback;
+
+    let parsedData = data;
+
+    // Coba parse jika ia merupakan string JSON mentah
+    if (typeof data === 'string' && data.startsWith('{') && data.endsWith('}')) {
+        try {
+            parsedData = JSON.parse(data);
+        } catch (e) {
+            // Jika parsing gagal, kembalikan string apa adanya
+            return data;
+        }
+    }
+
+    // Jika telah berhasil di-parse ke Object, atau dari awal sudah object
+    if (typeof parsedData === 'object' && parsedData !== null) {
+        return parsedData[langCode] || parsedData['id'] || parsedData['en'] || fallback;
+    }
+
+    // Jika hanya string biasa
+    return parsedData;
+};
+
 onMounted(() => {
     handleScroll()
+    emit('lang-changed', lang.value)
 
     window.addEventListener(
         'scroll',
@@ -270,17 +299,6 @@ onUnmounted(() => {
     window.removeEventListener(
         'scroll',
         handleScroll
-    )
-})
-
-onMounted(() => {
-    handleScroll()
-    emit('lang-changed', lang.value)
-
-    window.addEventListener(
-        'scroll',
-        handleScroll,
-        { passive: true }
     )
 })
 
