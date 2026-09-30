@@ -70,6 +70,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
     *,
     ::after,
     ::before,
@@ -80,6 +81,7 @@
 }
 
 @layer utilities {
+
     body,
     html {
         --font-sans:
@@ -166,13 +168,25 @@
     * {
         @apply border-border outline-ring/50;
     }
+
     body {
         @apply bg-background text-foreground;
     }
 }
 
 .imperial-script-regular {
-  font-family: "Imperial Script", cursive;
-  font-weight: 200;
-  font-style: normal;
+    /* Tambahkan Arial, Helvetica, sans-serif sebagai fallback sebelum cursive */
+    font-family: "Imperial Script", Arial, Helvetica, sans-serif, cursive !important;
+    font-weight: 200 !important;
+    font-style: normal !important;
+    font-display: swap !important;
+    /* Opsional: Pastikan swap aktif agar teks langsung muncul dengan Arial */
+}
+
+.font-cinzel {
+    font-family: 'Cinzel', serif;
+}
+
+.font-bodoni {
+    font-family: 'Bodoni Moda', serif;
 }
