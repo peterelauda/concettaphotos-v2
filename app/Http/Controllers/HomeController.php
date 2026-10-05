@@ -35,12 +35,17 @@ class HomeController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
+        $pricelistSection = Section::where('key', 'home_pricelist')
+            ->where('is_active', true)
+            ->first();
+
         return Inertia::render('Welcome', [
             'slides' => $slides,
             'aboutItems' => $menuItems->where('type', 'about')->values(),
             'servicesItems' => $menuItems->where('type', 'services')->values(),
             'introSection' => $introSection,
             'servicesSections' => $servicesSections,
+            'pricelistSection' => $pricelistSection,
         ]);
     }
 }

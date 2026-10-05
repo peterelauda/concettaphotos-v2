@@ -156,7 +156,17 @@
             </div>
         </div>
 
-        <div class="relative z-20 bg-[#578FCA] p-8 min-h-screen text-white border-t border-[#3674B5]">
+        <!-- Pricelist Section -->
+        <div
+            class="relative z-20 bg-[#578FCA] min-h-screen text-white border-t border-[#3674B5] flex flex-col items-center justify-center overflow-hidden">
+
+            <div ref="pricelistAnimRef"
+                :class="['w-full transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)]',
+                    isPricelistVisible ? 'opacity-100 translate-y-0 blur-0 scale-100' : 'opacity-0 translate-y-20 blur-sm scale-95']">
+
+                <PricelistBook v-if="pricelistSection" :section="pricelistSection" :lang="lang" />
+
+            </div>
         </div>
 
         <Footer />
@@ -171,6 +181,7 @@ import HeroSlideshow from '@/components/HeroSlideshow.vue';
 import Footer from '@/components/Footer.vue';
 import OrnamentDivider from '@/components/OrnamentDivider.vue';
 import ServiceDivider from '@/components/ServiceDivider.vue';
+import PricelistBook from '@/components/PricelistBook.vue';
 
 // ==========================================
 // 1. TYPES & INTERFACES
@@ -208,6 +219,7 @@ const props = defineProps<{
     servicesItems: SectionItem[]
     introSection?: DynamicSection
     servicesSections?: DynamicSection[]
+    pricelistSection?: DynamicSection
 }>();
 
 // ==========================================
@@ -415,6 +427,8 @@ const localizedServices = computed(() => {
         locContent: getLocalized(service.content, lang.value),
     }));
 });
+
+const { elRef: pricelistAnimRef, isVisible: isPricelistVisible } = useScrollReveal();
 </script>
 
 <style scoped>
