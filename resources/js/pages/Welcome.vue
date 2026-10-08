@@ -169,6 +169,16 @@
             </div>
         </div>
 
+        <!-- Empty 100vh Section -->
+        <div data-navbar-transparent-section>
+            <BlurEmptySection />
+        </div>
+
+        <!-- Our Testimony -->
+        <div data-navbar-transparent-section>
+            <TestimonySection :lang="lang" />
+        </div>
+
         <Footer />
     </div>
 </template>
@@ -182,6 +192,8 @@ import Footer from '@/components/Footer.vue';
 import OrnamentDivider from '@/components/OrnamentDivider.vue';
 import ServiceDivider from '@/components/ServiceDivider.vue';
 import PricelistBook from '@/components/PricelistBook.vue';
+import TestimonySection from '@/components/TestimonySection.vue';
+import BlurEmptySection from '@/components/BlurEmptySection.vue';
 
 // ==========================================
 // 1. TYPES & INTERFACES

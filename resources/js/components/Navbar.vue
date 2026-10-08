@@ -247,8 +247,28 @@ const servicesItems = computed(() => props.servicesItems)
 const isScrolled = ref(false)
 
 const handleScroll = () => {
-    const targetSection = document.querySelector('[data-navbar-scroll-target]')
+    const targetSection = document.querySelector(
+        '[data-navbar-scroll-target]'
+    )
 
+    const transparentSections = document.querySelectorAll(
+        '[data-navbar-transparent-section]'
+    )
+
+    // Cek apakah viewport sedang berada di Empty Section atau Testimony
+    const isInTransparentSection = Array.from(transparentSections).some((section) => {
+        const rect = section.getBoundingClientRect()
+
+        return rect.top <= 0 && rect.bottom > 0
+    })
+
+    // Saat berada di Empty / Testimony, navbar kembali transparan
+    if (isInTransparentSection) {
+        isScrolled.value = false
+        return
+    }
+
+    // Behavior normal Navbar
     if (!targetSection) {
         isScrolled.value = false
         return
