@@ -179,6 +179,10 @@
             <TestimonySection :lang="lang" />
         </div>
 
+        <div data-navbar-transparent-section>
+            <ConcettalkSection :posts="concettalkPosts || []" />
+        </div>
+
         <Footer />
     </div>
 </template>
@@ -194,6 +198,7 @@ import ServiceDivider from '@/components/ServiceDivider.vue';
 import PricelistBook from '@/components/PricelistBook.vue';
 import TestimonySection from '@/components/TestimonySection.vue';
 import BlurEmptySection from '@/components/BlurEmptySection.vue';
+import ConcettalkSection from '@/components/ConcettalkSection.vue';
 
 // ==========================================
 // 1. TYPES & INTERFACES
@@ -232,6 +237,7 @@ const props = defineProps<{
     introSection?: DynamicSection
     servicesSections?: DynamicSection[]
     pricelistSection?: DynamicSection
+    concettalkPosts?: any[]
 }>();
 
 // ==========================================

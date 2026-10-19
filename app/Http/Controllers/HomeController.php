@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConcettalkPost;
 use App\Models\Section;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
@@ -39,6 +40,17 @@ class HomeController extends Controller
             ->where('is_active', true)
             ->first();
 
+        $concettalkPosts = ConcettalkPost::where('is_active', true)
+            ->withCount('likes')
+            ->with([
+                'comments' => function ($query) {
+                    $query->latest();
+                },
+                'comments.user'
+            ])
+            ->latest()
+            ->get();
+
         return Inertia::render('Welcome', [
             'slides' => $slides,
             'aboutItems' => $menuItems->where('type', 'about')->values(),
@@ -46,6 +58,7 @@ class HomeController extends Controller
             'introSection' => $introSection,
             'servicesSections' => $servicesSections,
             'pricelistSection' => $pricelistSection,
+            'concettalkPosts' => $concettalkPosts,
         ]);
     }
 }
