@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConcettalkPost;
 use App\Models\Section;
+use App\Models\ConcettalkPost;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -21,34 +21,30 @@ class HomeController extends Controller
             return $heroSection ? $heroSection->media->toArray() : [];
         });
 
-        $introSection = Section::where('key', 'intro_about')
-            ->where('is_active', true)
-            ->with('media')
-            ->first();
+        $introSection = Section::where('key', 'intro_about')->where('is_active', true)->with('media')->first();
 
-        $menuItems = Section::whereIn('type', ['about', 'services'])
-            ->where('is_active', true)
-            ->get(['id', 'title', 'link_url', 'type']);
+        $menuItems = Section::whereIn('type', ['about', 'services'])->where('is_active', true)->get(['id', 'title', 'link_url', 'type']);
 
-        $servicesSections = Section::where('type', 'service_carousel')
-            ->where('is_active', true)
-            ->with(['media' => fn($q) => $q->where('is_active', true)->orderBy('sort_order', 'asc')])
-            ->orderBy('id', 'asc')
-            ->get();
+        $servicesSections = Section::where('type', 'service_carousel')->where('is_active', true)
+            ->with(['media' => fn($q) => $q->where('is_active', true)->orderBy('sort_order', 'asc')])->orderBy('id', 'asc')->get();
 
-        $pricelistSection = Section::where('key', 'home_pricelist')
-            ->where('is_active', true)
-            ->first();
+        $pricelistSection = Section::where('key', 'home_pricelist')->where('is_active', true)->first();
 
+        // Data Dynamic Section Concettalk
+        $concettalkSection = Section::where('key', 'home_concettalk')->where('is_active', true)->first();
+
+        // Ambil 8 Postingan untuk logic "Selengkapnya" di Frontend (tampil 7, sisa 1 sebagai flag)
         $concettalkPosts = ConcettalkPost::where('is_active', true)
             ->withCount('likes')
             ->with([
                 'comments' => function ($query) {
                     $query->latest();
                 },
-                'comments.user'
+                'comments.user',
+                'comments.replies.user'
             ])
             ->latest()
+            ->take(8)
             ->get();
 
         return Inertia::render('Welcome', [
@@ -58,6 +54,7 @@ class HomeController extends Controller
             'introSection' => $introSection,
             'servicesSections' => $servicesSections,
             'pricelistSection' => $pricelistSection,
+            'concettalkSection' => $concettalkSection,
             'concettalkPosts' => $concettalkPosts,
         ]);
     }

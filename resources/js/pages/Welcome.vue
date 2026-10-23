@@ -179,8 +179,9 @@
             <TestimonySection :lang="lang" />
         </div>
 
-        <div data-navbar-transparent-section>
-            <ConcettalkSection :posts="concettalkPosts || []" />
+        <!-- Concettalk Section: Gunakan data-navbar-scroll-target agar navbar menjadi solid & biru kembali -->
+        <div data-navbar-scroll-target>
+            <ConcettalkSection v-if="concettalkSection" :section="concettalkSection" :posts="concettalkPosts || []" :lang="lang" />
         </div>
 
         <Footer />
@@ -237,6 +238,7 @@ const props = defineProps<{
     introSection?: DynamicSection
     servicesSections?: DynamicSection[]
     pricelistSection?: DynamicSection
+    concettalkSection?: any
     concettalkPosts?: any[]
 }>();
 
