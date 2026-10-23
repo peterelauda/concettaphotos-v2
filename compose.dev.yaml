@@ -1,0 +1,79 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-cp
+    ports:
+      - "8087:80"
+    volumes:
+      - ./:/var/www:delegated
+      - ./docker/development/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php-fpm
+    networks:
+      - laravel
+
+  php-fpm:
+    build:
+      context: .
+      dockerfile: docker/common/php-fpm/Dockerfile
+    container_name: php-cp
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www:delegated
+      - vendor-data:/var/www/vendor
+      - storage-views:/var/www/storage/framework/views
+    env_file:
+      - .env
+    depends_on:
+      - mysql-cp
+    networks:
+      - laravel
+
+  workspace:
+    build:
+      context: .
+      dockerfile: docker/development/workspace/Dockerfile
+    container_name: workspace-cp
+    tty: true
+    stdin_open: true
+    ports:
+      - "5173:5173"
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www:delegated
+      - vendor-data:/var/www/vendor
+      - nodemodules-data:/var/www/node_modules
+      - storage-views:/var/www/storage/framework/views
+    env_file:
+      - .env
+    depends_on:
+      - mysql-cp
+    networks:
+      - laravel
+
+  mysql-cp:
+    image: mysql:8.4
+    container_name: mysql-cp
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    command: 
+      - --innodb_buffer_pool_size=256M
+      - --max_connections=50
+      - --performance_schema=OFF
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: concetta_photos
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - laravel
+
+volumes:
+  mysql-data:
+  vendor-data:
+  nodemodules-data:
+  storage-views:
+
+networks:
+  laravel:
