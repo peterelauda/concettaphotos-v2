@@ -47,6 +47,8 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
+        $ctaSection = Section::where('key', 'home_cta')->where('is_active', true)->first();
+
         return Inertia::render('Welcome', [
             'slides' => $slides,
             'aboutItems' => $menuItems->where('type', 'about')->values(),
@@ -56,6 +58,7 @@ class HomeController extends Controller
             'pricelistSection' => $pricelistSection,
             'concettalkSection' => $concettalkSection,
             'concettalkPosts' => $concettalkPosts,
+            'ctaSection' => $ctaSection,
         ]);
     }
 }

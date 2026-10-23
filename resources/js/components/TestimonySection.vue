@@ -3,7 +3,7 @@
         class="relative z-20 overflow-hidden px-6 min-h-screen flex flex-col items-center justify-center py-16">
         <!-- Blurred Background (Blur halus & exposure tidak terlalu gelap) -->
         <div class="absolute inset-0 -z-10 overflow-hidden bg-black/15">
-            <div class="absolute inset-0 bg-black/10 backdrop-blur-[6px]"></div>
+            <div class="absolute inset-0 bg-black/21 backdrop-blur-[6px]"></div>
         </div>
 
         <div class="relative flex flex-col items-center justify-center w-full max-w-7xl mx-auto my-auto">

@@ -169,9 +169,9 @@
             </div>
         </div>
 
-        <!-- Empty 100vh Section -->
+        <!-- Call To Action Section -->
         <div data-navbar-transparent-section>
-            <BlurEmptySection />
+            <BlurEmptySection :lang="lang" :section="ctaSection" />
         </div>
 
         <!-- Our Testimony -->
@@ -181,7 +181,8 @@
 
         <!-- Concettalk Section: Gunakan data-navbar-scroll-target agar navbar menjadi solid & biru kembali -->
         <div data-navbar-scroll-target>
-            <ConcettalkSection v-if="concettalkSection" :section="concettalkSection" :posts="concettalkPosts || []" :lang="lang" />
+            <ConcettalkSection v-if="concettalkSection" :section="concettalkSection" :posts="concettalkPosts || []"
+                :lang="lang" />
         </div>
 
         <Footer />
@@ -240,6 +241,7 @@ const props = defineProps<{
     pricelistSection?: DynamicSection
     concettalkSection?: any
     concettalkPosts?: any[]
+    ctaSection?: any
 }>();
 
 // ==========================================

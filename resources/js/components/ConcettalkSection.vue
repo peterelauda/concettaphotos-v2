@@ -1,14 +1,15 @@
 <template>
+    <!-- Hapus overflow-hidden agar shadow kartu tidak terpotong tepi -->
     <section
-        class="relative z-20 flex flex-col items-center w-full px-6 sm:px-12 md:px-20 pt-28 pb-36 md:pt-32 md:pb-40 bg-[#3674B5] border-t border-white/20 overflow-hidden">
+        class="relative z-20 flex flex-col items-center w-full pt-28 pb-36 md:pt-32 md:pb-40 bg-[#3674B5] border-t border-white/20">
 
         <!-- Header Dynamic -->
-        <div class="flex flex-col items-center gap-2 px-4 mx-auto text-center max-w-3xl mb-10 md:mb-12">
+        <div
+            class="flex flex-col items-center gap-2 px-6 sm:px-12 md:px-20 mx-auto text-center max-w-3xl mb-10 md:mb-12">
             <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl text-white font-bold tracking-widest uppercase">
                 {{ locTitle }}
             </h2>
 
-            <!-- Border Luxury Khusus Pricelist -->
             <div class="w-full flex items-center justify-center my-4 md:my-6 text-white/90">
                 <div class="flex-grow h-[0.75px] bg-current max-w-[100px] md:max-w-[200px]"></div>
                 <svg class="w-[300px] sm:w-[500px] md:w-[700px] h-auto flex-shrink-0 text-current px-2 md:px-4 drop-shadow-sm"
@@ -45,28 +46,25 @@
             </p>
         </div>
 
-        <!-- Carousel -->
+        <!-- Carousel (Menggunakan overflow-x-auto, menyentuh tepi layar penuh) -->
         <div ref="carouselRef" :class="[
-            'w-full overflow-x-auto hide-scrollbar flex gap-6 md:gap-10 pb-8 select-none transition-all duration-300',
+            'w-full overflow-x-auto hide-scrollbar flex gap-4 sm:gap-6 md:gap-10 pb-12 select-none transition-all duration-300',
             isDragging ? 'snap-none cursor-grabbing' : 'snap-x snap-mandatory cursor-grab',
             'px-6 sm:px-12 md:px-20 justify-start'
         ]" @mousedown="onMouseDown" @mouseleave="onMouseLeave" @mouseup="onMouseUp" @mousemove="onMouseMove">
 
-            <!-- Cards (Maksimal 7) - Border Radius diperhalus menjadi rounded-xl -->
+            <!-- Cards -->
             <div v-for="post in displayPosts" :key="post.id"
-                class="flex flex-col bg-white rounded-xl shadow-xl overflow-hidden flex-shrink-0 snap-center w-[85vw] sm:w-[350px] md:w-[400px]">
+                class="flex flex-col bg-white rounded-xl shadow-xl overflow-hidden flex-shrink-0 snap-center w-[80vw] sm:w-[350px] md:w-[400px]">
 
-                <!-- Card Header -->
                 <div class="flex items-center p-3.5 border-b border-gray-100 bg-white">
                     <div
-                        class="w-8 h-8 rounded-full bg-[#3674B5] flex items-center justify-center text-white font-bold text-xs shadow-sm">
-                        C
+                        class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm overflow-hidden border border-gray-100 flex-shrink-0">
+                        <img src="/images/logo_cp_navbar.png" alt="Logo CP" class="w-full h-full object-cover" />
                     </div>
-                    <!-- Capital Each Word: Concetta Photo -->
-                    <span class="ml-3 font-bodoni font-bold text-sm text-[#3674B5]">Concetta Photo</span>
+                    <span class="ml-3 font-cinzel font-bold text-sm text-[#3674B5]">Concetta Photo</span>
                 </div>
 
-                <!-- Image with Double Click -->
                 <div class="relative w-full aspect-[4/5] bg-gray-100 overflow-hidden"
                     @dblclick="handleDoubleClick(post)">
                     <img :src="post.image_path" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
@@ -81,7 +79,6 @@
                     </transition>
                 </div>
 
-                <!-- Actions & Caption -->
                 <div class="p-4 flex flex-col flex-grow bg-white">
                     <div class="flex gap-4 mb-2">
                         <button @click="toggleLike(post)" class="transition-transform active:scale-90 outline-none">
@@ -105,11 +102,10 @@
 
                     <p class="font-bodoni font-bold text-sm text-black mb-2">{{ post.likes_count }} likes</p>
                     <p class="text-sm font-bodoni text-black mb-3">
-                        <span class="font-bodoni font-bold text-[#3674B5] mr-1">Concetta Photo</span>
+                        <span class="font-cinzel font-bold text-[#3674B5] mr-1">Concetta Photo</span>
                         {{ post.caption }}
                     </p>
 
-                    <!-- Top 3 Comments -->
                     <div class="mt-auto space-y-1.5 pt-2 border-t border-gray-100">
                         <div v-for="comment in (post.comments || []).slice(0, 3)" :key="comment.id"
                             class="text-sm font-bodoni text-black">
@@ -132,7 +128,7 @@
                 </div>
             </div>
 
-            <!-- Card "Selengkapnya / More" (Diperbaiki hover state agar tidak transparan) -->
+            <!-- Card Selengkapnya -->
             <div v-if="hasMorePosts"
                 class="flex flex-col items-center justify-center bg-[#FDFBF7] hover:bg-[#A1E3F9] border border-[#3674B5]/30 rounded-xl shadow-xl flex-shrink-0 snap-center w-[85vw] sm:w-[350px] md:w-[400px] group cursor-pointer transition-all duration-300">
                 <div
@@ -147,111 +143,123 @@
             </div>
         </div>
 
-        <!-- MODAL COMMENT -->
-        <div v-if="activePost"
-            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-            @click.self="closeModal">
-            <div
-                class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl flex flex-col md:flex-row overflow-hidden max-h-[90vh]">
-
-                <!-- Gambar Left (Desktop) -->
+        <!-- MODAL COMMENT dengan Teleport ke Tag Body -->
+        <Teleport to="body">
+            <div v-if="activePost"
+                class="fixed inset-0 z-[99999] flex items-center justify-center p-0 md:p-4 bg-black/90 md:bg-black/80 backdrop-blur-sm"
+                @click.self="closeModal">
                 <div
-                    class="w-full md:w-1/2 bg-gray-100 flex items-center justify-center hidden md:flex overflow-hidden">
-                    <img :src="activePost.image_path" class="w-full h-full object-cover" />
-                </div>
+                    class="bg-white md:rounded-2xl shadow-2xl w-full h-full md:h-auto max-w-5xl flex flex-col md:flex-row overflow-hidden max-h-screen md:max-h-[90vh]">
 
-                <!-- Right Comment Section -->
-                <div class="w-full md:w-1/2 flex flex-col h-[70vh] md:h-[80vh] bg-white">
-                    <!-- Header Modal -->
-                    <div class="flex items-center justify-between p-4 border-b border-gray-200">
-                        <div class="flex items-center">
-                            <div
-                                class="w-8 h-8 rounded-full bg-[#3674B5] flex items-center justify-center text-white font-bold text-xs shadow-sm">
-                                C
-                            </div>
-                            <span class="ml-3 font-bodoni font-bold text-sm text-[#3674B5]">Concetta Photo</span>
-                        </div>
-                        <button @click="closeModal" class="text-gray-500 hover:text-red-500 transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Bagian Kiri: Gambar Full Scale Responsive -->
+                    <div
+                        class="w-full md:w-3/5 bg-black flex items-center justify-center h-[40vh] md:h-auto overflow-hidden relative">
+                        <img :src="activePost.image_path" class="w-full h-full object-contain" />
+                        <button @click="closeModal"
+                            class="md:hidden absolute top-4 right-4 bg-black/50 text-white rounded-full p-1.5 hover:bg-red-500 transition-colors z-10">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
 
-                    <!-- List Komentar -->
-                    <div class="flex-grow p-4 overflow-y-auto hide-scrollbar space-y-4 bg-white">
-                        <!-- Caption -->
-                        <div class="flex gap-3 mb-4 pb-3 border-b border-gray-100">
-                            <div
-                                class="w-8 h-8 rounded-full bg-[#3674B5] flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">
-                                C</div>
-                            <p class="text-sm font-bodoni text-black">
-                                <span class="font-bodoni font-bold text-[#3674B5] mr-1">Concetta Photo</span>
-                                {{ activePost.caption }}
-                            </p>
-                        </div>
-
-                        <!-- User Comments -->
-                        <div v-for="comment in (activePost.comments || [])" :key="comment.id"
-                            class="flex flex-col gap-1">
-                            <div class="flex gap-3">
+                    <!-- Bagian Kanan: Area Komentar -->
+                    <div class="w-full md:w-2/5 flex flex-col h-[60vh] md:h-[85vh] bg-white">
+                        <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                            <div class="flex items-center">
                                 <div
-                                    class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-gray-700 font-bold text-xs uppercase">
-                                    {{ (comment.user ? comment.user.name : (comment.guest_name || 'G')).charAt(0) }}
+                                    class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm overflow-hidden border border-gray-100 flex-shrink-0">
+                                    <img src="/images/logo_cp_navbar.png" alt="Logo CP"
+                                        class="w-full h-full object-cover" />
                                 </div>
-                                <div>
-                                    <p class="text-sm font-bodoni text-black">
-                                        <span class="font-bold mr-1 text-black">{{ comment.user ? comment.user.name :
-                                            (comment.guest_name || 'Guest') }}</span>
-                                        {{ comment.content }}
-                                    </p>
-                                    <button v-if="isAdmin" @click="setReply(comment)"
-                                        class="text-xs text-gray-500 mt-1 hover:underline font-bodoni">Reply</button>
+                                <span class="ml-3 font-cinzel font-bold text-sm text-[#3674B5]">Concetta Photo</span>
+                            </div>
+                            <button @click="closeModal"
+                                class="hidden md:block text-gray-500 hover:text-red-500 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Daftar Komentar -->
+                        <div class="flex-grow p-4 overflow-y-auto hide-scrollbar space-y-4 bg-white">
+                            <div class="flex gap-3 mb-4 pb-3 border-b border-gray-100">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-white flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden border border-gray-100">
+                                    <img src="/images/logo_cp_navbar.png" alt="Logo CP"
+                                        class="w-full h-full object-cover" />
                                 </div>
+                                <p class="text-sm font-bodoni text-black">
+                                    <span class="font-cinzel font-bold text-[#3674B5] mr-1">Concetta Photo</span>
+                                    {{ activePost.caption }}
+                                </p>
                             </div>
 
-                            <!-- Replies -->
-                            <div v-if="comment.replies && comment.replies.length > 0" class="ml-11 mt-2 space-y-2">
-                                <div v-for="reply in comment.replies" :key="reply.id" class="flex gap-3">
+                            <div v-for="comment in (activePost.comments || [])" :key="comment.id"
+                                class="flex flex-col gap-1">
+                                <div class="flex gap-3">
                                     <div
-                                        class="w-6 h-6 rounded-full bg-[#3674B5] flex-shrink-0 flex items-center justify-center text-white font-bold text-[10px]">
-                                        C</div>
-                                    <p class="text-sm font-bodoni text-black">
-                                        <span class="font-bodoni font-bold text-[#3674B5] mr-1">Concetta Photo</span>
-                                        {{ reply.content }}
-                                    </p>
+                                        class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-gray-700 font-bold text-xs uppercase">
+                                        {{ (comment.user ? comment.user.name : (comment.guest_name || 'G')).charAt(0) }}
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bodoni text-black">
+                                            <span class="font-bold mr-1 text-black">{{ comment.user ? comment.user.name
+                                                : (comment.guest_name || 'Guest') }}</span>
+                                            {{ comment.content }}
+                                        </p>
+                                        <button v-if="isAdmin" @click="setReply(comment)"
+                                            class="text-xs text-gray-500 mt-1 hover:underline font-bodoni">Reply</button>
+                                    </div>
+                                </div>
+
+                                <div v-if="comment.replies && comment.replies.length > 0" class="ml-11 mt-2 space-y-2">
+                                    <div v-for="reply in comment.replies" :key="reply.id" class="flex gap-3">
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-white flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden border border-gray-100">
+                                            <img src="/images/logo_cp_navbar.png" alt="Logo CP"
+                                                class="w-full h-full object-cover" />
+                                        </div>
+                                        <p class="text-sm font-bodoni text-black">
+                                            <span class="font-cinzel font-bold text-[#3674B5] mr-1">Concetta
+                                                Photo</span>
+                                            {{ reply.content }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Input Area -->
-                    <div class="border-t border-gray-200 p-4 bg-gray-50 flex flex-col">
-                        <div v-if="replyingTo"
-                            class="flex items-center justify-between bg-gray-200 text-xs px-3 py-1 rounded-md mb-2 text-black font-bodoni">
-                            <span>Replying to <strong>{{ replyingTo.user?.name || replyingTo.guest_name || 'Guest'
-                                    }}</strong></span>
-                            <button @click="cancelReply" class="text-gray-600 font-bold">✕</button>
-                        </div>
+                        <!-- Form Input Komentar -->
+                        <div class="border-t border-gray-200 p-4 bg-gray-50 flex flex-col">
+                            <div v-if="replyingTo"
+                                class="flex items-center justify-between bg-gray-200 text-xs px-3 py-1 rounded-md mb-2 text-black font-bodoni">
+                                <span>Replying to <strong>{{ replyingTo.user?.name || replyingTo.guest_name || 'Guest'
+                                        }}</strong></span>
+                                <button @click="cancelReply" class="text-gray-600 font-bold">✕</button>
+                            </div>
 
-                        <div v-if="!isAuth" class="mb-2">
-                            <input type="text" v-model="guestName" placeholder="Your Name"
-                                class="w-full text-sm border-gray-300 rounded-md p-2.5 font-bodoni text-black placeholder-gray-400 focus:border-[#3674B5] focus:ring-[#3674B5]">
-                        </div>
+                            <div v-if="!isAuth" class="mb-2">
+                                <input type="text" v-model="guestName" placeholder="Your Name"
+                                    class="w-full text-sm border-gray-300 rounded-md p-2.5 font-bodoni text-black placeholder-gray-400 focus:border-[#3674B5] focus:ring-[#3674B5]">
+                            </div>
 
-                        <div class="flex items-center">
-                            <input type="text" v-model="commentText" placeholder="Add a comment..."
-                                class="flex-grow text-sm border-gray-300 rounded-md p-2.5 font-bodoni text-black placeholder-gray-400 focus:border-[#3674B5] focus:ring-[#3674B5]"
-                                @keyup.enter="submitComment(activePost)">
-                            <button @click="submitComment(activePost)"
-                                class="ml-3 text-[#3674B5] font-bold text-sm font-cinzel tracking-widest disabled:opacity-40 transition-opacity"
-                                :disabled="!commentText || (!isAuth && !guestName)">POST</button>
+                            <div class="flex items-center">
+                                <input type="text" v-model="commentText" placeholder="Add a comment..."
+                                    class="flex-grow text-sm border-gray-300 rounded-md p-2.5 font-bodoni text-black placeholder-gray-400 focus:border-[#3674B5] focus:ring-[#3674B5]"
+                                    @keyup.enter="submitComment(activePost)">
+                                <button @click="submitComment(activePost)"
+                                    class="ml-3 text-[#3674B5] font-bold text-sm font-cinzel tracking-widest disabled:opacity-40 transition-opacity"
+                                    :disabled="!commentText || (!isAuth && !guestName)">POST</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Teleport>
 
     </section>
 </template>
@@ -271,7 +279,7 @@ const page = usePage();
 const isAuth = computed(() => page.props.auth?.user != null);
 const isAdmin = computed(() => page.props.auth?.user?.role === 'admin');
 
-// Localization Helper
+// Localization
 const getLoc = (data: any, fallback: string = '') => {
     if (!data) return fallback;
     let parsed = typeof data === 'string' ? (data.startsWith('{') ? JSON.parse(data) : data) : data;
@@ -286,12 +294,11 @@ const t = computed(() => ({
     morePosts: props.lang === 'id' ? 'Selengkapnya' : 'View More'
 }));
 
-// Posts Setup
+// Posts Initialization
 const postsData = ref([...props.posts]);
 const displayPosts = computed(() => postsData.value.slice(0, 7));
 const hasMorePosts = computed(() => postsData.value.length > 7);
 
-// LocalStorage & State Management
 const guestName = ref('');
 const likedPostsMap = ref<Record<number, boolean>>({});
 
@@ -311,7 +318,7 @@ onMounted(() => {
     });
 });
 
-// Like Feature (Dual Path endpoint fallback agar dapat tersimpan di Database)
+// Like Feature
 const toggleLike = async (post: any) => {
     const isLiking = !post.has_liked;
     post.has_liked = isLiking;
@@ -338,14 +345,13 @@ const toggleLike = async (post: any) => {
     }
 };
 
-// Double Click Like
 const handleDoubleClick = (post: any) => {
     post.showHeartAnim = true;
     setTimeout(() => { post.showHeartAnim = false; }, 800);
     if (!post.has_liked) toggleLike(post);
 };
 
-// Modal & Reply Feature
+// Modal Handling
 const activePost = ref<any>(null);
 const commentText = ref('');
 const replyingTo = ref<any>(null);
@@ -371,7 +377,7 @@ const cancelReply = () => {
     replyingTo.value = null;
 };
 
-// Comment Post Function
+// Submit Comments
 const submitComment = async (post: any) => {
     if (!commentText.value) return;
     if (!isAuth.value && !guestName.value) return;
@@ -416,7 +422,7 @@ const submitComment = async (post: any) => {
     }
 };
 
-// Carousel Drag Logic
+// Drag To Scroll Carousel
 const carouselRef = ref<HTMLElement | null>(null);
 const isDragging = ref(false);
 let startX = 0, scrollLeft = 0;
