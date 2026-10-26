@@ -304,8 +304,24 @@ const getLocalized = (data: any, langCode: string, fallback: string = '') => {
     return parsedData;
 };
 
+const isSidebarOpen = ref(false)
+const isLangOpen = ref(false)
+const isAboutOpen = ref(false)
+const isServicesOpen = ref(false)
+
+// State awal bahasa disetel default 'en'
+const lang = ref<'en' | 'id'>('en')
+
 onMounted(() => {
+    // Ambil cache bahasa dari localStorage saat komponen di-mount
+    const savedLang = localStorage.getItem('app_lang')
+    if (savedLang === 'id' || savedLang === 'en') {
+        lang.value = savedLang
+    }
+
     handleScroll()
+
+    // Pastikan emit menggunakan bahasa dari localStorage yang sudah ter-load
     emit('lang-changed', lang.value)
 
     window.addEventListener(
@@ -322,15 +338,9 @@ onUnmounted(() => {
     )
 })
 
-const isSidebarOpen = ref(false)
-const isLangOpen = ref(false)
-const isAboutOpen = ref(false)
-const isServicesOpen = ref(false)
-
-const lang = ref<'en' | 'id'>('en')
-
 const changeLang = (newLang: 'en' | 'id') => {
     lang.value = newLang
+    localStorage.setItem('app_lang', newLang)
     isLangOpen.value = false
     emit('lang-changed', newLang)
 }

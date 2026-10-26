@@ -25,6 +25,8 @@ class HomeController extends Controller
 
         $menuItems = Section::whereIn('type', ['about', 'services'])->where('is_active', true)->get(['id', 'title', 'link_url', 'type']);
 
+        $heroSection = Section::where('key', 'home_hero')->where('is_active', true)->first();
+
         $servicesSections = Section::where('type', 'service_carousel')->where('is_active', true)
             ->with(['media' => fn($q) => $q->where('is_active', true)->orderBy('sort_order', 'asc')])->orderBy('id', 'asc')->get();
 
@@ -51,6 +53,7 @@ class HomeController extends Controller
 
         return Inertia::render('Welcome', [
             'slides' => $slides,
+            'heroSection' => $heroSection,
             'aboutItems' => $menuItems->where('type', 'about')->values(),
             'servicesItems' => $menuItems->where('type', 'services')->values(),
             'introSection' => $introSection,

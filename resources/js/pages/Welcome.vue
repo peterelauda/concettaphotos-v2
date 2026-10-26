@@ -2,7 +2,7 @@
     <div>
         <Navbar :aboutItems="aboutItems" :servicesItems="servicesSections" @lang-changed="lang = $event" />
 
-        <HeroSlideshow v-if="slides && slides.length > 0" :slides="slides" />
+        <HeroSlideshow v-if="slides && slides.length > 0" :slides="slides" :quoteText="heroQuoteText" />
 
         <div v-else class="p-8 text-center bg-gray-100">
             <h1 class="text-2xl font-bold">There are no active slides.</h1>
@@ -171,7 +171,11 @@
 
         <!-- Call To Action Section -->
         <div data-navbar-transparent-section>
-            <BlurEmptySection :lang="lang" :section="ctaSection" />
+            <div ref="ctaAnimRef"
+                :class="['transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu',
+                    isCtaVisible ? 'opacity-100 translate-y-0 blur-0 scale-100' : 'opacity-0 translate-y-24 blur-md scale-95']">
+                <BlurEmptySection :lang="lang" :section="ctaSection" />
+            </div>
         </div>
 
         <!-- Our Testimony -->
@@ -242,6 +246,7 @@ const props = defineProps<{
     concettalkSection?: any
     concettalkPosts?: any[]
     ctaSection?: any
+    heroSection?: DynamicSection
 }>();
 
 // ==========================================
@@ -429,6 +434,16 @@ const scrollToService = (index: number) => {
     }
 };
 
+// Computed property untuk memproses bahasa (ID/EN) dari database
+const heroQuoteText = computed(() => {
+    // Fallback text jika database kosong
+    const fallback = lang.value === 'id'
+        ? '"Mari abadikan kenangan Anda untuk selamanya."'
+        : '"Let’s make your memories remain forever."';
+
+    return getLocalized(props.heroSection?.title, lang.value, fallback);
+});
+
 // ==========================================
 // 7. COMPUTED VIEW MODELS
 // ==========================================
@@ -451,6 +466,7 @@ const localizedServices = computed(() => {
 });
 
 const { elRef: pricelistAnimRef, isVisible: isPricelistVisible } = useScrollReveal();
+const { elRef: ctaAnimRef, isVisible: isCtaVisible } = useScrollReveal(0.15);
 </script>
 
 <style scoped>
