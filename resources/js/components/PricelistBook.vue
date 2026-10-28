@@ -5,7 +5,7 @@
         <!-- Header Text -->
         <div class="text-center mb-10 md:mb-14 z-10 w-full">
             <h2
-                class="font-cinzel text-3xl sm:text-4xl md:text-5xl text-white font-bold tracking-[0.15em] uppercase mb-4">
+                class="font-cinzel text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-bold tracking-[0.15em] uppercase mb-4">
                 {{ locTitle }}
             </h2>
 

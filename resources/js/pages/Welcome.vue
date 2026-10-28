@@ -50,7 +50,7 @@
                 <!-- Header -->
                 <div class="flex flex-col items-center gap-2 px-6 mx-auto text-center max-w-3xl mb-10 md:mb-12">
                     <h2
-                        class="font-cinzel text-3xl md:text-4xl lg:text-5xl text-[#3674B5] font-bold tracking-widest uppercase">
+                        class="font-cinzel text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#3674B5] font-bold tracking-widest uppercase">
                         {{ t.servicesHeading }}
                     </h2>
 

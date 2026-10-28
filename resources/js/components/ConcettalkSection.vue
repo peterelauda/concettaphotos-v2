@@ -11,13 +11,18 @@
             <!-- Header Dynamic -->
             <div
                 class="flex flex-col items-center gap-2 px-6 sm:px-12 md:px-20 mx-auto text-center max-w-3xl mb-10 md:mb-12">
-                <h2 class="font-cinzel text-3xl md:text-4xl lg:text-5xl text-white font-bold tracking-widest uppercase">
+                <!-- 1. Font dikecilkan ke text-2xl untuk mobile -->
+                <h2
+                    class="font-cinzel text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-bold tracking-widest uppercase">
                     {{ locTitle }}
                 </h2>
 
+                <!-- 2. Ornamen dan Divider disesuaikan agar tidak kebesaran -->
                 <div class="w-full flex items-center justify-center my-4 md:my-6 text-white/90">
-                    <div class="flex-grow h-[0.75px] bg-current max-w-[100px] md:max-w-[200px]"></div>
-                    <svg class="w-[300px] sm:w-[500px] md:w-[700px] h-auto flex-shrink-0 text-current px-2 md:px-4 drop-shadow-sm"
+                    <div class="flex-grow h-[0.75px] bg-current max-w-[60px] sm:max-w-[100px] md:max-w-[200px]"></div>
+
+                    <!-- Lebar minimum SVG dikecilkan menjadi w-[200px] pada mobile -->
+                    <svg class="w-[200px] sm:w-[400px] md:w-[700px] h-auto flex-shrink-0 text-current px-2 md:px-4 drop-shadow-sm"
                         viewBox="0 0 500 30" fill="none" stroke="currentColor">
                         <g transform="translate(250, 15)">
                             <path d="M -240,0 L -55,0" stroke-width="0.75" vector-effect="non-scaling-stroke" />
@@ -43,10 +48,13 @@
                             <circle cx="20" cy="0" r="1.25" fill="currentColor" stroke="none" />
                         </g>
                     </svg>
-                    <div class="flex-grow h-[0.75px] bg-current max-w-[100px] md:max-w-[200px]"></div>
+
+                    <div class="flex-grow h-[0.75px] bg-current max-w-[60px] sm:max-w-[100px] md:max-w-[200px]"></div>
                 </div>
 
-                <p class="font-bodoni text-base md:text-lg text-white/80 font-light leading-relaxed max-w-2xl mt-1">
+                <!-- 3. Paragraf deskripsi dikecilkan menjadi text-sm untuk mobile -->
+                <p
+                    class="font-bodoni text-sm sm:text-base md:text-lg text-white/80 font-light leading-relaxed max-w-2xl mt-1">
                     {{ locContent }}
                 </p>
             </div>
@@ -115,7 +123,7 @@
                                 <span class="font-bold mr-1 text-black">{{ comment.user ? comment.user.name :
                                     (comment.guest_name || 'Guest') }}</span>
                                 <span class="text-black" v-if="comment.content.length <= 80">{{ comment.content
-                                }}</span>
+                                    }}</span>
                                 <span class="text-black" v-else>
                                     {{ comment.content.substring(0, 80) }}...
                                     <button @click="openModal(post)"
@@ -244,7 +252,7 @@
                             <div v-if="replyingTo"
                                 class="flex items-center justify-between bg-gray-200 text-xs px-3 py-1 rounded-md mb-2 text-black font-bodoni">
                                 <span>Replying to <strong>{{ replyingTo.user?.name || replyingTo.guest_name || 'Guest'
-                                        }}</strong></span>
+                                }}</strong></span>
                                 <button @click="cancelReply" class="text-gray-600 font-bold">✕</button>
                             </div>
 
@@ -301,7 +309,11 @@ const t = computed(() => ({
 }));
 
 // Posts Initialization
-const postsData = ref([...props.posts]);
+const postsData = ref(props.posts.map(post => ({
+    ...post,
+    comments: post.comments || [],
+    has_liked: false
+})));
 const displayPosts = computed(() => postsData.value.slice(0, 7));
 const hasMorePosts = computed(() => postsData.value.length > 7);
 

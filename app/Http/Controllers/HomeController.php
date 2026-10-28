@@ -12,50 +12,49 @@ class HomeController extends Controller
 {
     public function index(): Response
     {
-        $slides = Cache::remember('home_hero_slideshow_media', 60 * 24, function () {
-            $heroSection = Section::with(['media' => fn($q) => $q->where('is_active', true)->orderBy('sort_order', 'asc')])
-                ->where('key', 'home_hero_slideshow')
+        // 1. Simpan Section statis ke Cache sebagai Array murni
+        $sectionsData = Cache::remember('home_sections_data', 86400, function () {
+            return Section::with([
+                'media' => function ($q) {
+                    $q->where('is_active', true)->orderBy('sort_order', 'asc');
+                }
+            ])
                 ->where('is_active', true)
-                ->first();
-
-            return $heroSection ? $heroSection->media->toArray() : [];
+                ->get()
+                ->toArray();
         });
 
-        $introSection = Section::where('key', 'intro_about')->where('is_active', true)->with('media')->first();
+        $sections = collect($sectionsData);
 
-        $menuItems = Section::whereIn('type', ['about', 'services'])->where('is_active', true)->get(['id', 'title', 'link_url', 'type']);
+        $slides = $sections->firstWhere('key', 'home_hero_slideshow')['media'] ?? [];
+        $heroSection = $sections->firstWhere('key', 'home_hero');
+        $introSection = $sections->firstWhere('key', 'intro_about');
+        $pricelistSection = $sections->firstWhere('key', 'home_pricelist');
+        $concettalkSection = $sections->firstWhere('key', 'home_concettalk');
+        $ctaSection = $sections->firstWhere('key', 'home_cta');
 
-        $heroSection = Section::where('key', 'home_hero')->where('is_active', true)->first();
+        $servicesSections = $sections->where('type', 'service_carousel')->values()->all();
+        $menuItems = $sections->whereIn('type', ['about', 'services'])->values();
 
-        $servicesSections = Section::where('type', 'service_carousel')->where('is_active', true)
-            ->with(['media' => fn($q) => $q->where('is_active', true)->orderBy('sort_order', 'asc')])->orderBy('id', 'asc')->get();
-
-        $pricelistSection = Section::where('key', 'home_pricelist')->where('is_active', true)->first();
-
-        // Data Dynamic Section Concettalk
-        $concettalkSection = Section::where('key', 'home_concettalk')->where('is_active', true)->first();
-
-        // Ambil 8 Postingan untuk logic "Selengkapnya" di Frontend (tampil 7, sisa 1 sebagai flag)
+        // 2. AMBIL LANGSUNG TANPA CACHE
+        // Agar likes_count dan komentar selalu tersinkronisasi secara real-time saat di-reload
         $concettalkPosts = ConcettalkPost::where('is_active', true)
             ->withCount('likes')
             ->with([
-                'comments' => function ($query) {
-                    $query->latest();
-                },
+                'comments' => fn($q) => $q->latest(),
                 'comments.user',
                 'comments.replies.user'
             ])
             ->latest()
             ->take(8)
-            ->get();
+            ->get()
+            ->toArray();
 
-        $ctaSection = Section::where('key', 'home_cta')->where('is_active', true)->first();
-
-        return Inertia::render('Welcome', [
+        return Inertia::render('Welcome', [ // atau 'Welcome_2' sesuai nama file Anda
             'slides' => $slides,
             'heroSection' => $heroSection,
-            'aboutItems' => $menuItems->where('type', 'about')->values(),
-            'servicesItems' => $menuItems->where('type', 'services')->values(),
+            'aboutItems' => $menuItems->where('type', 'about')->values()->all(),
+            'servicesItems' => $menuItems->where('type', 'services')->values()->all(),
             'introSection' => $introSection,
             'servicesSections' => $servicesSections,
             'pricelistSection' => $pricelistSection,

@@ -15,16 +15,22 @@
             <!-- Header -->
             <div class="flex flex-col items-center w-full max-w-3xl gap-3 mx-auto mb-8 text-center">
                 <h2
-                    class="font-cinzel text-3xl md:text-4xl lg:text-5xl font-bold tracking-widest uppercase text-white drop-shadow-[0_2px_7px_rgba(0,0,0,0.18)]">
+                    class="font-cinzel text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-widest uppercase text-white drop-shadow-[0_2px_7px_rgba(0,0,0,0.18)]">
                     {{ heading }}
                 </h2>
+
                 <!-- ServiceDivider dengan warna putih -->
                 <ServiceDivider class="text-white" />
+
+                <p
+                    class="mt-2 text-sm font-light tracking-wide text-white/90 font-bodoni sm:text-base md:text-lg drop-shadow-md">
+                    {{ subHeading }}
+                </p>
             </div>
 
             <!-- Testimony Content -->
             <div
-                class="w-full overflow-hidden rounded-4xl border border-white/30 bg-white shadow-[0_8px_28px_rgba(0,0,0,0.12)] backdrop-blur-[4px]">
+                class="w-full mt-3 overflow-hidden rounded-4xl border border-white/30 bg-white shadow-[0_8px_28px_rgba(0,0,0,0.12)] backdrop-blur-[4px]">
                 <iframe src="https://padlet.com/embed/8eenhn71li4mvssp" title="Our Testimony" frameborder="0"
                     loading="lazy" allow="camera;microphone;geolocation;display-capture;clipboard-write"
                     class="block w-full h-[450px] md:h-[520px] border-0 bg-white"></iframe>
@@ -49,6 +55,10 @@ const props = defineProps<{
 
 const heading = computed(() => {
     return props.lang === 'id' ? 'Testimoni Kami' : 'Our Testimony';
+});
+
+const subHeading = computed(() => {
+    return props.lang === 'id' ? 'Kami melayani dengan hati' : 'We serve with heart';
 });
 
 // Animasi Scroll Reveal

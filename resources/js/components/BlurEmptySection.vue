@@ -7,7 +7,7 @@
         <div class="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto w-full">
 
             <h2
-                class="font-cinzel text-2xl sm:text-3xl md:text-5xl text-white font-bold tracking-wider uppercase leading-snug drop-shadow-lg">
+                class="font-cinzel text-xl sm:text-2xl md:text-3xl lg:text-5xl text-white font-bold tracking-wider uppercase leading-snug drop-shadow-lg">
                 {{ locTitle }}
             </h2>
 
