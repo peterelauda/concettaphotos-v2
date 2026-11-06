@@ -2,7 +2,7 @@
     <div>
         <Navbar :aboutItems="aboutItems" :servicesItems="servicesSections" @lang-changed="lang = $event" />
 
-        <HeroSlideshow v-if="slides && slides.length > 0" :slides="slides" />
+        <HeroSlideshow v-if="slides && slides.length > 0" :slides="slides" :quoteText="heroQuoteText" />
 
         <div v-else class="p-8 text-center bg-gray-100">
             <h1 class="text-2xl font-bold">There are no active slides.</h1>
@@ -50,7 +50,7 @@
                 <!-- Header -->
                 <div class="flex flex-col items-center gap-2 px-6 mx-auto text-center max-w-3xl mb-10 md:mb-12">
                     <h2
-                        class="font-cinzel text-3xl md:text-4xl lg:text-5xl text-[#3674B5] font-bold tracking-widest uppercase">
+                        class="font-cinzel text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#3674B5] font-bold tracking-widest uppercase">
                         {{ t.servicesHeading }}
                     </h2>
 
@@ -169,9 +169,13 @@
             </div>
         </div>
 
-        <!-- Empty 100vh Section -->
+        <!-- Call To Action Section -->
         <div data-navbar-transparent-section>
-            <BlurEmptySection />
+            <div ref="ctaAnimRef"
+                :class="['transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu',
+                    isCtaVisible ? 'opacity-100 translate-y-0 blur-0 scale-100' : 'opacity-0 translate-y-24 blur-md scale-95']">
+                <BlurEmptySection :lang="lang" :section="ctaSection" />
+            </div>
         </div>
 
         <!-- Our Testimony -->
@@ -179,8 +183,10 @@
             <TestimonySection :lang="lang" />
         </div>
 
-        <div data-navbar-transparent-section>
-            <ConcettalkSection :posts="concettalkPosts || []" />
+        <!-- Concettalk Section: Gunakan data-navbar-scroll-target agar navbar menjadi solid & biru kembali -->
+        <div data-navbar-scroll-target>
+            <ConcettalkSection v-if="concettalkSection" :section="concettalkSection" :posts="concettalkPosts || []"
+                :lang="lang" />
         </div>
 
         <Footer />
@@ -237,7 +243,10 @@ const props = defineProps<{
     introSection?: DynamicSection
     servicesSections?: DynamicSection[]
     pricelistSection?: DynamicSection
+    concettalkSection?: any
     concettalkPosts?: any[]
+    ctaSection?: any
+    heroSection?: DynamicSection
 }>();
 
 // ==========================================
@@ -425,6 +434,16 @@ const scrollToService = (index: number) => {
     }
 };
 
+// Computed property untuk memproses bahasa (ID/EN) dari database
+const heroQuoteText = computed(() => {
+    // Fallback text jika database kosong
+    const fallback = lang.value === 'id'
+        ? '"Mari abadikan kenangan Anda untuk selamanya."'
+        : '"Let’s make your memories remain forever."';
+
+    return getLocalized(props.heroSection?.title, lang.value, fallback);
+});
+
 // ==========================================
 // 7. COMPUTED VIEW MODELS
 // ==========================================
@@ -447,6 +466,7 @@ const localizedServices = computed(() => {
 });
 
 const { elRef: pricelistAnimRef, isVisible: isPricelistVisible } = useScrollReveal();
+const { elRef: ctaAnimRef, isVisible: isCtaVisible } = useScrollReveal(0.15);
 </script>
 
 <style scoped>

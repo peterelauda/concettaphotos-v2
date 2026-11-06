@@ -76,8 +76,8 @@
                 </div>
 
                 <h1
-                    class="col-lg-6 mx-auto mb-4 imperial-script-regular text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal solid-shadow-text">
-                    "Let’s make your memories remains forever."
+                    class="col-lg-6 mx-auto mb-4 imperial-script-regular text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal solid-shadow-text px-4">
+                    {{ quoteText || '"Let’s make your memories remain forever."' }}
                 </h1>
             </div>
 
@@ -109,6 +109,7 @@ interface SlideMedia {
 const props = defineProps<{
     slides: SlideMedia[]
     interval?: number
+    quoteText?: string
 }>()
 
 const currentIndex = ref(0)
