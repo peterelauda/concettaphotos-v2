@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -35,13 +37,25 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $menuItems = Cache::remember('navbar_menu_items', 86400, function () {
+            return Section::whereIn('type', ['about', 'services', 'service_carousel'])
+                ->where('is_active', true)
+                ->orderBy('id', 'asc')
+                ->get(['id', 'title', 'link_url', 'type'])
+                ->toArray();
+        });
+
+        $menuCollection = collect($menuItems);
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
             ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'sidebarOpen' => !$request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'aboutItems' => fn() => $menuCollection->where('type', 'about')->values()->all(),
+            'servicesItems' => fn() => $menuCollection->whereIn('type', ['services', 'service_carousel'])->values()->all(),
         ];
     }
 }
