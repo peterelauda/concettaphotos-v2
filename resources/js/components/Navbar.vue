@@ -1,13 +1,13 @@
 <template>
     <header :class="[
         'fixed top-0 z-40 w-full transition-all duration-700 ease-in-out',
-        isScrolled
+        (isScrolled || alwaysWhite)
             ? 'bg-white opacity-100 shadow-md'
             : 'bg-transparent opacity-100'
     ]">
         <div class="flex items-center justify-between w-full px-4 sm:px-6 md:px-10 py-4">
             <div class="flex-1">
-                <button @click="isSidebarOpen = true" :class="isScrolled
+                <button @click="isSidebarOpen = true" :class="(isScrolled || alwaysWhite)
                     ? 'text-[#3674B5] hover:text-[#3674B5]'
                     : 'text-white hover:text-white'"
                     class="font-cinzel text-sm sm:text-base md:text-lg active:scale-95 transition-colors duration-700 flex items-center gap-1 sm:gap-2">
@@ -24,14 +24,14 @@
             <div class="flex-1 flex justify-center">
                 <Link href="/">
                     <img src="/images/logo_cp_primary.png" alt="Concetta Photos"
-                        :class="isScrolled ? 'logo-blue' : 'logo-white'"
+                        :class="(isScrolled || alwaysWhite) ? 'logo-blue' : 'logo-white'"
                         class="h-7 sm:h-10 md:h-14 w-auto object-contain transition-all duration-700 ease-in-out" />
                 </Link>
             </div>
 
             <div class="flex-1 flex items-center justify-end">
                 <div class="relative">
-                    <button @click="isLangOpen = !isLangOpen" :class="isScrolled
+                    <button @click="isLangOpen = !isLangOpen" :class="(isScrolled || alwaysWhite)
                         ? 'text-[#3674B5] hover:text-[#3674B5]'
                         : 'text-white hover:text-white'"
                         class="font-cinzel text-xs sm:text-sm md:text-base lg:text-lg flex items-center gap-1 transition-colors duration-700 outline-none">
@@ -46,12 +46,12 @@
                     <transition name="fade">
                         <div v-if="isLangOpen" :class="[
                             'absolute right-0 mt-2 w-16 sm:w-20 rounded-sm py-1 z-50 overflow-hidden border-none transition-all duration-300',
-                            isScrolled ? 'bg-white shadow-md' : 'bg-white/7 shadow-lg backdrop-blur-[1px]'
+                            (isScrolled || alwaysWhite) ? 'bg-white shadow-md' : 'bg-white/7 shadow-lg backdrop-blur-[1px]'
                         ]">
 
                             <button @click="changeLang('en')"
                                 class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni bg-transparent outline-none transition-colors duration-200"
-                                :class="isScrolled
+                                :class="(isScrolled || alwaysWhite)
                                     ? 'text-[#3674B5] hover:bg-[#3674B5] hover:text-white active:bg-[#A1E3F9] active:text-white'
                                     : 'text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#A1E3F9]'
                                     ">
@@ -60,7 +60,7 @@
 
                             <button @click="changeLang('id')"
                                 class="block w-full text-center px-4 py-2 text-xs sm:text-sm md:text-base lg:text-lg font-bodoni bg-transparent outline-none transition-colors duration-200"
-                                :class="isScrolled
+                                :class="(isScrolled || alwaysWhite)
                                     ? 'text-[#3674B5] hover:bg-[#3674B5] hover:text-white active:bg-[#A1E3F9] active:text-white'
                                     : 'text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#A1E3F9]'
                                     ">
@@ -105,7 +105,7 @@
                     </button>
                     <ul v-show="isAboutOpen" class="pl-4 mt-2 space-y-2">
                         <li v-for="item in aboutItems" :key="item.id">
-                            <Link :href="item.link_url || '#'"
+                            <Link :href="item.link_url || '#'" @click="isSidebarOpen = false"
                                 class="block py-1 text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
                                 {{ getLocalized(item.title, lang) }}
                             </Link>
@@ -122,7 +122,7 @@
                     </button>
                     <ul v-show="isServicesOpen" class="pl-4 mt-2 space-y-2">
                         <li v-for="item in servicesItems" :key="item.id">
-                            <Link :href="item.link_url || '#'"
+                            <Link :href="item.link_url || '#'" @click="isSidebarOpen = false"
                                 class="block py-1 text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
                                 {{ getLocalized(item.title, lang) }}
                             </Link>
@@ -131,26 +131,26 @@
                 </li>
 
                 <li>
-                    <Link href="/pricelist"
+                    <Link href="/pricelist" @click="isSidebarOpen = false"
                         class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
                         {{ t.priceList }}
                     </Link>
                 </li>
 
                 <li>
-                    <Link href="/testimonials"
+                    <Link href="/testimonials" @click="isSidebarOpen = false"
                         class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
                         {{ t.testimonials }}
                     </Link>
                 </li>
                 <li>
-                    <Link href="/concettalk"
+                    <Link href="/concettalk" @click="isSidebarOpen = false"
                         class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
                         {{ t.concettalk }}
                     </Link>
                 </li>
                 <li>
-                    <Link href="/faqs"
+                    <Link href="/faqs" @click="isSidebarOpen = false"
                         class="block text-left whitespace-normal break-words text-[#3674B5] hover:text-[#578FCA] active:text-[#D1F8EF] transition-colors duration-200">
                         {{ t.faqs }}
                     </Link>
@@ -232,10 +232,12 @@ const props = withDefaults(
     defineProps<{
         aboutItems?: SectionItem[]
         servicesItems?: SectionItem[]
+        alwaysWhite?: boolean;
     }>(),
     {
         aboutItems: () => [],
-        servicesItems: () => []
+        servicesItems: () => [],
+        alwaysWhite: false
     }
 )
 
@@ -247,6 +249,11 @@ const servicesItems = computed(() => props.servicesItems)
 const isScrolled = ref(false)
 
 const handleScroll = () => {
+    if (props.alwaysWhite) {
+        isScrolled.value = true;
+        return;
+    }
+
     const targetSection = document.querySelector(
         '[data-navbar-scroll-target]'
     )
