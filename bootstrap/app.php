@@ -22,6 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
+
+        // Tambahkan pengecualian CSRF untuk rute concettalk
+        $middleware->validateCsrfTokens(except: [
+            'concettalk/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
