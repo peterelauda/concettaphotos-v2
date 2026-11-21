@@ -1,101 +1,115 @@
 <template>
     <div class="relative min-h-screen flex flex-col bg-transparent">
 
-        <!-- PARALLAX BACKGROUND DINAMIS (z-0 agar tampil di atas body dan di belakang konten) -->
-        <div class="fixed inset-0 z-0 w-full h-full bg-cover bg-center bg-no-repeat bg-fixed pointer-events-none"
+        <!-- PARALLAX BACKGROUND DINAMIS -->
+        <div class="fixed inset-0 z-0 w-full h-full bg-cover bg-center bg-no-repeat pointer-events-none"
             :style="{ backgroundImage: `url('${bgImage}')` }">
-            <div class="absolute inset-0 bg-black/45 backdrop-blur-[1px]"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/60 backdrop-blur-[1px]">
+            </div>
         </div>
 
-        <!-- NAVBAR (Otomatis transparan di atas dan putih saat menyentuh data-navbar-scroll-target) -->
+        <!-- NAVBAR -->
         <Navbar :aboutItems="aboutItems" :servicesItems="servicesItems" @lang-changed="handleLangChanged" />
 
-        <!-- HERO BANNER TENTANG KAMI (50vh) -->
+        <!-- HERO BANNER TENTANG KAMI (50vh Responsive) -->
         <div
-            class="relative z-10 h-[50vh] flex flex-col items-center justify-center bg-transparent text-white text-center">
-            <div class="max-w-4xl mx-auto px-6 mt-14">
-                <p class="imperial-script-regular text-2xl sm:text-3xl md:text-4xl text-white mb-2 drop-shadow-md">
+            class="relative z-10 min-h-[48vh] sm:min-h-[50vh] pt-24 pb-10 sm:pt-28 sm:pb-12 flex flex-col items-center justify-center bg-transparent text-white text-center">
+            <div class="max-w-4xl mx-auto px-5 sm:px-8">
+                <p
+                    class="imperial-script-regular text-2xl sm:text-3xl md:text-4xl text-white mb-1 sm:mb-2 drop-shadow-md">
                     {{ lang === 'id' ? 'Mengenal Lebih Dekat' : 'Discover Our Journey' }}
                 </p>
                 <h1
-                    class="font-cinzel text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest uppercase drop-shadow-lg">
+                    class="font-cinzel text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[0.15em] sm:tracking-widest uppercase drop-shadow-lg">
                     {{ lang === 'id' ? 'Tentang Kami' : 'About Us' }}
                 </h1>
 
-                <div class="w-full flex items-center justify-center my-4 text-white/90 drop-shadow-md">
-                    <div class="flex-grow h-[0.75px] bg-current max-w-[60px] sm:max-w-[100px]"></div>
-                    <ServiceDivider class="text-white px-3" />
-                    <div class="flex-grow h-[0.75px] bg-current max-w-[60px] sm:max-w-[100px]"></div>
+                <div class="w-full flex items-center justify-center my-3 sm:my-4 text-white/90 drop-shadow-md">
+                    <div class="flex-grow h-[0.75px] bg-current max-w-[45px] sm:max-w-[90px] md:max-w-[110px]"></div>
+                    <ServiceDivider class="text-white px-2 sm:px-3" />
+                    <div class="flex-grow h-[0.75px] bg-current max-w-[45px] sm:max-w-[90px] md:max-w-[110px]"></div>
                 </div>
             </div>
         </div>
 
-        <!-- DYNAMIC ABOUT SECTIONS (data-navbar-scroll-target memicu Navbar jadi putih 100%) -->
+        <!-- DYNAMIC ABOUT SECTIONS -->
         <main data-navbar-scroll-target class="relative z-20 flex-grow bg-[#3674B5]">
             <section v-for="(section, index) in localizedSections" :key="section.id" :id="section.key" :class="[
-                'py-20 sm:py-28 md:py-32 px-6 sm:px-12 md:px-20 transition-colors duration-500 border-b',
+                'py-14 sm:py-20 md:py-28 lg:py-32 px-5 sm:px-10 md:px-16 lg:px-20 transition-colors duration-500 border-b',
                 index % 2 === 0
                     ? 'bg-[#3674B5] text-white border-white/15'
                     : 'bg-white text-[#3674B5] border-[#3674B5]/15'
             ]">
-                <div class="relative max-w-7xl mx-auto flex flex-col gap-12 md:gap-16">
+                <div class="relative max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12 md:gap-16">
 
-                    <!-- HEADER SECTION (Dihilangkan pada section pertama / index === 0) -->
-                    <div v-if="index !== 0" class="flex flex-col items-center text-center max-w-3xl mx-auto">
+                    <!-- HEADER SECTION (Seragam untuk semua section, section pertama menampilkan Why Choose Us) -->
+                    <div class="flex flex-col items-center text-center max-w-3xl mx-auto px-2">
                         <p v-if="section.locSubtitle" :class="[
-                            'imperial-script-regular text-3xl sm:text-4xl md:text-5xl mb-2',
+                            'imperial-script-regular text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-1 sm:mb-2',
                             index % 2 === 0 ? 'text-white' : 'text-[#578FCA]'
                         ]">
                             {{ section.locSubtitle }}
                         </p>
 
                         <h2
-                            class="font-cinzel text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-widest uppercase">
-                            {{ section.locTitle }}
+                            class="font-cinzel text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-[0.12em] sm:tracking-widest uppercase">
+                            {{ index === 0 ? (lang === 'id' ? 'Mengapa Memilih Kami?' : 'Why Choose Us?') :
+                                section.locTitle }}
                         </h2>
 
                         <!-- Ornament Divider -->
-                        <div class="w-full flex items-center justify-center my-4 opacity-90">
-                            <div class="flex-grow h-[0.75px] bg-current max-w-[50px] sm:max-w-[100px]"></div>
-                            <ServiceDivider :class="index % 2 === 0 ? 'text-white px-3' : 'text-[#3674B5] px-3'" />
-                            <div class="flex-grow h-[0.75px] bg-current max-w-[50px] sm:max-w-[100px]"></div>
+                        <div class="w-full flex items-center justify-center my-3 sm:my-4 opacity-90">
+                            <div class="flex-grow h-[0.75px] bg-current max-w-[45px] sm:max-w-[90px] md:max-w-[110px]">
+                            </div>
+                            <ServiceDivider
+                                :class="index % 2 === 0 ? 'text-white px-2 sm:px-3' : 'text-[#3674B5] px-2 sm:px-3'" />
+                            <div class="flex-grow h-[0.75px] bg-current max-w-[45px] sm:max-w-[90px] md:max-w-[110px]">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- LAYOUT 2 KOLOM -->
+                    <!-- LAYOUT 2 KOLOM RESPONSIVE -->
                     <div :class="[
-                        'flex flex-col lg:flex-row items-center gap-10 md:gap-14 lg:gap-20',
+                        'flex flex-col lg:flex-row items-center gap-8 sm:gap-10 md:gap-14 lg:gap-16 xl:gap-20',
                         index % 2 === 1 ? 'lg:flex-row-reverse' : ''
                     ]">
-                        <!-- KOLOM GAMBAR (Tanpa shadow) -->
+                        <!-- KOLOM GAMBAR -->
                         <div v-if="section.media && section.media.length > 0" class="w-full lg:w-1/2">
                             <div :class="[
-                                'relative aspect-[4/3] w-full rounded-sm overflow-hidden border transform transition-all duration-700 hover:scale-[1.02]',
-                                index % 2 === 0 ? 'border-white/20 bg-white/10' : 'border-[#3674B5]/20 bg-gray-50'
+                                'relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] w-full rounded-sm overflow-hidden border transform transition-transform duration-700 hover:scale-[1.01]',
+                                index % 2 === 0 ? 'border-white/25 bg-white/10' : 'border-[#3674B5]/20 bg-gray-50'
                             ]">
-                                <img :src="section.media[0].file_path" :alt="section.locTitle"
+                                <img :src="section.media[0].file_path"
+                                    :alt="index === 0 ? (lang === 'id' ? 'Mengapa Memilih Kami?' : 'Why Choose Us?') : section.locTitle"
                                     class="w-full h-full object-cover" loading="lazy" />
                             </div>
                         </div>
 
-                        <!-- KOLOM TEKS (Rata kanan khusus pada section background putih / index ganjil) -->
+                        <!-- KOLOM TEKS -->
                         <div :class="[
-                            'flex flex-col justify-center space-y-4 w-full',
-                            (section.media && section.media.length > 0) ? 'lg:w-1/2' : 'lg:w-3/4 mx-auto',
-                            index % 2 === 1 ? 'text-right' : 'text-left'
+                            'flex flex-col justify-center space-y-5 w-full',
+                            (section.media && section.media.length > 0) ? 'lg:w-1/2' : 'lg:w-3/4 mx-auto'
                         ]">
-                            <div :class="[
-                                'font-bodoni text-base sm:text-lg md:text-xl leading-loose whitespace-pre-line font-light opacity-95',
-                                index % 2 === 1 ? 'text-right' : 'text-left'
-                            ]">
-                                {{ section.locContent }}
+                            <!-- Paragraf Justify dengan baris terakhir mengikuti posisi section (kiri/kanan) -->
+                            <div
+                                class="space-y-4 font-bodoni text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed sm:leading-loose font-light opacity-95">
+                                <p v-for="(paragraph, pIndex) in section.locParagraphs" :key="pIndex" :class="[
+                                    'text-justify',
+                                    index % 2 === 1
+                                        ? '[text-align-last:left] lg:[text-align-last:right]'
+                                        : '[text-align-last:left]'
+                                ]">
+                                    {{ paragraph }}
+                                </p>
                             </div>
 
-                            <!-- Button Contact -->
-                            <div v-if="index === localizedSections.length - 1"
-                                :class="['pt-6', index % 2 === 1 ? 'flex justify-end' : '']">
+                            <!-- Button Contact di Section Terakhir -->
+                            <div v-if="index === localizedSections.length - 1" :class="[
+                                'pt-4 sm:pt-6 flex',
+                                index % 2 === 1 ? 'justify-start lg:justify-end' : 'justify-start'
+                            ]">
                                 <Link href="/contact" :class="[
-                                    'inline-block px-8 py-3 text-xs tracking-widest uppercase transition-all duration-300 border font-cinzel sm:text-sm active:scale-95',
+                                    'w-full sm:w-auto text-center inline-block px-8 py-3.5 sm:py-3 text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 border font-cinzel active:scale-95',
                                     index % 2 === 0
                                         ? 'border-white text-white hover:bg-white hover:text-[#578FCA] active:bg-white active:text-[#A1E3F9]'
                                         : 'border-[#3674B5] text-[#3674B5] hover:bg-[#3674B5] hover:text-white'
@@ -175,12 +189,20 @@ const getLocalized = (data: any, langCode: string, fallback: string = '') => {
 };
 
 const localizedSections = computed(() => {
-    return props.aboutSections.map(section => ({
-        ...section,
-        locTitle: getLocalized(section.title, lang.value),
-        locSubtitle: getLocalized(section.subtitle, lang.value),
-        locContent: getLocalized(section.content, lang.value),
-    }));
+    return props.aboutSections.map(section => {
+        const rawContent = getLocalized(section.content, lang.value);
+        const paragraphs = rawContent
+            ? rawContent.split(/\n\s*\n/).map((p: string) => p.trim()).filter(Boolean)
+            : [];
+
+        return {
+            ...section,
+            locTitle: getLocalized(section.title, lang.value),
+            locSubtitle: getLocalized(section.subtitle, lang.value),
+            locContent: rawContent,
+            locParagraphs: paragraphs,
+        };
+    });
 });
 </script>
 
